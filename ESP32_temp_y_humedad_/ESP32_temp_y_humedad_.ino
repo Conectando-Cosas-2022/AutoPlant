@@ -16,6 +16,7 @@
 const char* ssid     = "HUAWEI-IoT";
 const char* password = "ORTWiFiIoT";
 
+
 // Host de ThingsBoard
 const char* mqtt_server = "demo.thingsboard.io";
 const int mqtt_port = 1883;
@@ -216,6 +217,23 @@ void loop() {
       Serial.print("Publicar mensaje [telemetry]: ");
       Serial.println("Failed to read from DHT sensor!");
     }
+
+     if (_topic.startsWith("v1/devices/me/rpc/attributes/")) { // El servidor "me pide que haga algo" (RPC)
+    // Obtener el número de solicitud (request number)
+    String _request_id = _topic.substring(26);
+
+    // Leer el objeto JSON (Utilizando ArduinoJson)
+    deserializeJson(incoming_message, payload); // Interpretar el cuerpo del mensaje como Json
+    String metodo = incoming_message["method"]; // Obtener del objeto Json, el método RPC solicitado
+     }
+      DynamicJsonDocument resp(256);
+      resp["ledBuiltin"] = !(!digitalRead(LED));
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+  
 
   }
 }
