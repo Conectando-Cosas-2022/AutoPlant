@@ -139,101 +139,122 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println(buffer);
     }
   }
-}
 
-// Establecer y mantener la conexión con el servidor MQTT (En este caso de ThingsBoard)
-void reconnect() {
-  // Bucle hasta lograr la conexión
-  while (!client.connected()) {
-    Serial.print("Intentando conectar MQTT...");
-    if (client.connect("ESP8266", token, token)) {  //Nombre del Device y Token para conectarse
-      Serial.println("¡Conectado!");
-
-      // Una vez conectado, suscribirse al tópico para recibir solicitudes RPC
-      client.subscribe("v1/devices/me/rpc/request/+");
-
-    } else {
-
-      Serial.print("Error, rc = ");
-      Serial.print(client.state());
-      Serial.println("Reintenar en 5 segundos...");
-      // Esperar 5 segundos antes de reintentar
-      delay(5000);
-
-    }
-  }
-}
-
-/*========= SETUP =========*/
-
-void setup() {
-  // Conectividad
-  Serial.begin(115200);                   // Inicializar conexión Serie para utilizar el Monitor
-  setup_wifi();                           // Establecer la conexión WiFi
-  client.setServer(mqtt_server, mqtt_port);// Establecer los datos para la conexión MQTT
-  client.setCallback(callback);           // Establecer la función del callback para la llegada de mensajes en tópicos suscriptos
-
-  // Sensores y actuadores
-  pinMode(LED, OUTPUT);       // Inicializar el LED como salida
-  pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
-  dht.begin();                        // Iniciar el sensor DHT
-}
-
-/*========= BUCLE PRINCIPAL =========*/
-
-void loop() {
-
-  // === Conexión e intercambio de mensajes MQTT ===
-  if (!client.connected()) {  // Controlar en cada ciclo la conexión con el servidor
-    reconnect();              // Y recuperarla en caso de desconexión
-  }
-
-  client.loop();              // Controlar si hay mensajes entrantes o para enviar al servidor
-
-  // === Realizar las tareas asignadas al dispositivo ===
-  // En este caso se medirá temperatura y humedad para reportar periódicamente
-  // El control de tiempo se hace con millis para que no sea bloqueante y en "paralelo" completar
-  // ciclos del bucle principal
-
-  unsigned long now = millis();
-  if (now - lastMsg > msgPeriod) {
-    lastMsg = now;
-
-    temperature = dht.readTemperature();  // Leer la temperatura
-    humidity = dht.readHumidity();        // Leer la humedad
-
-    if (!isnan(temperature) && !isnan(humidity)) {
-      // Publicar los datos en el tópio de telemetría para que el servidor los reciba
-      DynamicJsonDocument resp(256);
-      resp["temperatura"] = temperature; //temperature;  //Agrega el dato al Json, ej: "temperature": 21.5
-      resp["humedad"] = humidity; //humidity;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/telemetry", buffer);  // Publica el mensaje de telemetría
-
-      Serial.print("Publicar mensaje [telemetry]: ");
-      Serial.println(buffer);
-    } else {
-      Serial.print("Publicar mensaje [telemetry]: ");
-      Serial.println("Failed to read from DHT sensor!");
-    }
-
-     if (_topic.startsWith("v1/devices/me/rpc/attributes/")) { // El servidor "me pide que haga algo" (RPC)
+  if (_topic.startsWith("v1/devices/me/rpc/attributes/")) { // El servidor "me pide que haga algo" (RPC)
     // Obtener el número de solicitud (request number)
     String _request_id = _topic.substring(26);
 
     // Leer el objeto JSON (Utilizando ArduinoJson)
     deserializeJson(incoming_message, payload); // Interpretar el cuerpo del mensaje como Json
-    String metodo = incoming_message["method"]; // Obtener del objeto Json, el método RPC solicitado
-     }
-      DynamicJsonDocument resp(256);
-      resp["ledBuiltin"] = !(!digitalRead(LED));
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-  
+    String estado = incoming_message["ledBuiltin"]; // Obtener del objeto Json, el método RPC solicitado
+
+
+    if (estado) {
+      digitalWrite(LED, LOW); // Encender LED
+      Serial.println("Encender LED");
+    } else {
+      digitalWrite(LED, HIGH); // Apagar LED
+      Serial.println("Apagar LED");
+    }
+
+    // Actualizar el atributo relacionado
+    DynamicJsonDocument resp(256);
+    resp["estado"] = !digitalRead(LED);
+    char buffer[256];
+    serializeJson(resp, buffer);
+    client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+    Serial.print("Publish message [attribute]: ");
+    //Serial.println(buffer);
+
 
   }
 }
+  // Establecer y mantener la conexión con el servidor MQTT (En este caso de ThingsBoard)
+  void reconnect() {
+    // Bucle hasta lograr la conexión
+    while (!client.connected()) {
+      Serial.print("Intentando conectar MQTT...");
+      if (client.connect("ESP8266", token, token)) {  //Nombre del Device y Token para conectarse
+        Serial.println("¡Conectado!");
+
+        // Una vez conectado, suscribirse al tópico para recibir solicitudes RPC
+        client.subscribe("v1/devices/me/rpc/request/+");
+
+      } else {
+
+        Serial.print("Error, rc = ");
+        Serial.print(client.state());
+        Serial.println("Reintenar en 5 segundos...");
+        // Esperar 5 segundos antes de reintentar
+        delay(5000);
+
+      }
+    }
+  }
+
+  /*========= SETUP =========*/
+
+  void setup() {
+    // Conectividad
+    Serial.begin(115200);                   // Inicializar conexión Serie para utilizar el Monitor
+    setup_wifi();                           // Establecer la conexión WiFi
+    client.setServer(mqtt_server, mqtt_port);// Establecer los datos para la conexión MQTT
+    client.setCallback(callback);           // Establecer la función del callback para la llegada de mensajes en tópicos suscriptos
+
+    // Sensores y actuadores
+    pinMode(LED, OUTPUT);       // Inicializar el LED como salida
+    pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
+    dht.begin();                        // Iniciar el sensor DHT
+  }
+
+  /*========= BUCLE PRINCIPAL =========*/
+
+  void loop() {
+
+    // === Conexión e intercambio de mensajes MQTT ===
+    if (!client.connected()) {  // Controlar en cada ciclo la conexión con el servidor
+      reconnect();              // Y recuperarla en caso de desconexión
+    }
+
+    client.loop();              // Controlar si hay mensajes entrantes o para enviar al servidor
+
+    // === Realizar las tareas asignadas al dispositivo ===
+    // En este caso se medirá temperatura y humedad para reportar periódicamente
+    // El control de tiempo se hace con millis para que no sea bloqueante y en "paralelo" completar
+    // ciclos del bucle principal
+
+    unsigned long now = millis();
+    if (now - lastMsg > msgPeriod) {
+      lastMsg = now;
+
+      temperature = dht.readTemperature();  // Leer la temperatura
+      humidity = dht.readHumidity();        // Leer la humedad
+
+      if (!isnan(temperature) && !isnan(humidity)) {
+        // Publicar los datos en el tópio de telemetría para que el servidor los reciba
+        DynamicJsonDocument resp(256);
+        resp["temperatura"] = temperature; //temperature;  //Agrega el dato al Json, ej: "temperature": 21.5
+        resp["humedad"] = humidity; //humidity;
+        char buffer[256];
+        serializeJson(resp, buffer);
+        client.publish("v1/devices/me/telemetry", buffer);  // Publica el mensaje de telemetría
+
+        Serial.print("Publicar mensaje [telemetry]: ");
+        Serial.println(buffer);
+      } else {
+        Serial.print("Publicar mensaje [telemetry]: ");
+        Serial.println("Failed to read from DHT sensor!");
+      }
+
+
+      //      DynamicJsonDocument resp(256);
+      //      resp["ledBuiltin"] = !(!digitalRead(LED));
+      //      char buffer[256];
+      //      serializeJson(resp, buffer);
+      //      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+      //      Serial.print("Publish message [attribute]: ");
+      //      Serial.println(buffer);
+      //
+
+    }
+  }

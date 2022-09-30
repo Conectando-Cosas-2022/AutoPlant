@@ -3,6 +3,9 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
+#include "DHT.h"          // Biblioteca para trabajar con DHT 11 (Sensor de temperatura y humedad)
+
+
 
 // Update these with values suitable for your network.
 const char* ssid = "HUAWEI-IoT";
@@ -11,14 +14,30 @@ const char* password = "ORTWiFiIoT";
 
 
 const char* mqtt_server = "demo.thingsboard.io";
-const char* token = "xi8BtsVO8eB9reDsBwCW";
+const char* token = "11QHcVqS0n3q8OvO22k1";
+
+
+// Tipo de sensor
+#define DHTTYPE DHT11 // DHT 11
+#define DHT_PIN 2   // Conexión en PIN D4
+#define LED1 5  // pin D1
+#define FAN1 4 //Pin D2
+
+
 
 // Connection objects
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+// Objetos de Sensores o Actuadores
+DHT dht(DHT_PIN, DHTTYPE);
+
 //timestamp of the last telemetry update
 unsigned long lastMsg = 0;
+int msgPeriod = 2000;       // Actualizar los datos cada 2 segundos
+float humidity = 0;
+float temperature = 0;
+boolean led_state = false;
 
 //buffer sizes and messages
 #define MSG_BUFFER_SIZE  (50)
@@ -28,8 +47,8 @@ char msg2[MSG_BUFFER_SIZE];
 //json document to store incoming messages
 DynamicJsonDocument incoming_message(256);
 
-//Fake telemetry
-int value = 0;
+////Fake telemetry
+//int value = 0;
 
 //Led state
 boolean estado = false;
@@ -62,7 +81,7 @@ void setup_wifi() {
 //This method is called whenever a MQTT message arrives. We must be prepared for any type of incoming message.
 //We are subscribed to RPC Calls: v1/devices/me/rpc/request/+
 void callback(char* topic, byte* payload, unsigned int length) {
-  
+
   //log to console
   Serial.print("Message arrived [");
   Serial.print(topic);
@@ -74,7 +93,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   //convert topic to string to parse
   String _topic = String(topic);
-  
+
   if (_topic.startsWith("v1/devices/me/rpc/request/")) {
     //We are in a request, check request number
     String _number = _topic.substring(26);
@@ -82,39 +101,61 @@ void callback(char* topic, byte* payload, unsigned int length) {
     //Read JSON Object
     deserializeJson(incoming_message, payload);
     String metodo = incoming_message["method"];
-    
-    if (metodo=="checkStatus") {  //Check device status. Expects a response to the same topic number with status=true.
-      
+
+    if (metodo == "checkStatus") { //Check device status. Expects a response to the same topic number with status=true.
+
       char outTopic[128];
-      ("v1/devices/me/rpc/response/"+_number).toCharArray(outTopic,128);
-      
+      ("v1/devices/me/rpc/response/" + _number).toCharArray(outTopic, 128);
+
       DynamicJsonDocument resp(256);
       resp["status"] = true;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish(outTopic, buffer);
     }
-    
-    if (metodo=="setLedStatus") {  //Set led status and update attribute value via MQTT
-      
+
+    if (metodo == "setLedStatus") { //Set led status and update attribute value via MQTT
+
       boolean estado = incoming_message["params"];
 
       if (estado) {
-        digitalWrite(LED_BUILTIN,LOW); //turn on led
+        digitalWrite(LED1, HIGH); //turn on led
       } else {
-        digitalWrite(LED_BUILTIN,HIGH); //turn off led
+        digitalWrite(LED1, LOW); //turn off led
       }
 
       //Attribute update
       DynamicJsonDocument resp(256);
-      resp["estado"] = estado;
+      resp["LED1"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
       Serial.print("Publish message [attribute]: ");
       Serial.println(buffer);
     }
+
+    if (metodo == "setFan1Status") { //Set led status and update attribute value via MQTT
+
+      boolean estado = incoming_message["params"];
+
+      if (estado) {
+        digitalWrite(FAN1, LOW); //turn on led
+      } else {
+        digitalWrite(FAN1, HIGH); //turn off led
+      }
+
+      //Attribute update
+      DynamicJsonDocument resp(256);
+      resp["FAN1"] = estado;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    }
+    
   }
+
 }
 
 void reconnect() {
@@ -137,11 +178,15 @@ void reconnect() {
 }
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
+  pinMode(LED1, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
+  pinMode(FAN1, OUTPUT);
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
+
+  pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
+  dht.begin();                        // Iniciar el sensor DHT
 }
 
 void loop() {
@@ -151,22 +196,37 @@ void loop() {
   }
   client.loop();
 
-   unsigned long now = millis();
+  unsigned long now = millis();
   if (now - lastMsg > 2000) {
     lastMsg = now;
-    value = random(100);
+    temperature = dht.readTemperature();  // Leer la temperatura
+    humidity = dht.readHumidity();        // Leer la humedad
 
-    //Send value as telemetry
-    DynamicJsonDocument resp(256);
-    resp["temperatura"] = value;
-    resp["humedad"] = value*10;
-    char buffer[256];
-    serializeJson(resp, buffer);
-    client.publish("v1/devices/me/telemetry", buffer);
+    if (!isnan(temperature) && !isnan(humidity)) {
+      //Send value as telemetry
+      DynamicJsonDocument resp(256);
+      resp["temperatura"] = temperature;
+      resp["humedad"] = humidity;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/telemetry", buffer);
+
+      Serial.print("Publish message [telemetry]: ");
+      Serial.println(buffer);
+    } else {
+      Serial.print("Publicar mensaje [telemetry]: ");
+      Serial.println("Failed to read from DHT sensor!");
+    }
+
     
-    Serial.print("Publish message [telemetry]: ");
-    Serial.println(buffer);
-    
+//            DynamicJsonDocument resp(256);
+//            resp["estado"] = !(!digitalRead(LED_BUILTIN));
+//            char buffer[256];
+//            serializeJson(resp, buffer);
+//            client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+//            Serial.print("Publish message [attribute]: ");
+//            Serial.println(buffer);
+
   }
-  
+
 }
