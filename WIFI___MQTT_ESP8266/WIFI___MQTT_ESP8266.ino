@@ -22,6 +22,10 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 #define DHT_PIN 2   // Conexión en PIN D4
 #define LED1 5  // pin D1
 #define FAN1 4 //Pin D2
+#define hterrestre A0 // pin A0 humedad terrestre
+#define Bomba1 16
+#define pinTanque A0
+#define valorReserva 500
 
 
 
@@ -37,6 +41,9 @@ unsigned long lastMsg = 0;
 int msgPeriod = 2000;       // Actualizar los datos cada 2 segundos
 float humidity = 0;
 float temperature = 0;
+long humedad_terrestre = 0;
+long valorTanque = 0;
+boolean estadoTanque = false;
 boolean led_state = false;
 
 //buffer sizes and messages
@@ -153,6 +160,26 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print("Publish message [attribute]: ");
       Serial.println(buffer);
     }
+
+      if (metodo == "setBomba1Status") { //Set led status and update attribute value via MQTT
+
+      boolean estado = incoming_message["params"];
+
+      if (estado) {
+        digitalWrite(Bomba1, LOW); //turn on bomba
+      } else {
+        digitalWrite(Bomba1, HIGH); //turn off bomba
+      }
+
+      //Attribute update
+      DynamicJsonDocument resp(256);
+      resp["Bomba1"] = estado;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    }
     
   }
 
@@ -180,6 +207,7 @@ void reconnect() {
 void setup() {
   pinMode(LED1, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
   pinMode(FAN1, OUTPUT);
+  pinMode(Bomba1, OUTPUT);
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
@@ -199,14 +227,37 @@ void loop() {
   unsigned long now = millis();
   if (now - lastMsg > 2000) {
     lastMsg = now;
-    temperature = dht.readTemperature();  // Leer la temperatura
-    humidity = dht.readHumidity();        // Leer la humedad
+   // temperature = dht.readTemperature();  // Leer la temperatura
+   // humidity = dht.readHumidity();        // Leer la humedad
+      temperature= 30;
+      humidity= 50;
+    humedad_terrestre = analogRead(hterrestre);
+    Serial.println(humedad_terrestre);
+    humedad_terrestre = (1024 - humedad_terrestre)/5;
+    //Serial.println( humedad_terrestre);
+
+    valorTanque = analogRead(pinTanque);
+    if(valorTanque>valorReserva){
+      estadoTanque = false;
+    }else{
+      estadoTanque = true;
+    }
+
+     DynamicJsonDocument resp(256);
+      resp["Tanque1"] = estadoTanque;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+      
 
     if (!isnan(temperature) && !isnan(humidity)) {
       //Send value as telemetry
       DynamicJsonDocument resp(256);
       resp["temperatura"] = temperature;
       resp["humedad"] = humidity;
+      resp["humedad terrestre"] = humedad_terrestre;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/telemetry", buffer);
@@ -218,14 +269,7 @@ void loop() {
       Serial.println("Failed to read from DHT sensor!");
     }
 
-    
-//            DynamicJsonDocument resp(256);
-//            resp["estado"] = !(!digitalRead(LED_BUILTIN));
-//            char buffer[256];
-//            serializeJson(resp, buffer);
-//            client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
-//            Serial.print("Publish message [attribute]: ");
-//            Serial.println(buffer);
+
 
   }
 
