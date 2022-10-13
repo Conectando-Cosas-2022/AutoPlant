@@ -12,12 +12,11 @@ const char* ssid = "HUAWEI-IoT";
 const char* password = "ORTWiFiIoT";
 
 
-
 const char* mqtt_server = "demo.thingsboard.io";
 const char* token = "11QHcVqS0n3q8OvO22k1";
 
 
-// Tipo de sensor
+// -----DRFINITIONS-----------------
 #define DHTTYPE DHT11 // DHT 11
 #define DHT_PIN 2   // Conexión en PIN D4
 #define LED1 5  // pin D1
@@ -36,7 +35,7 @@ PubSubClient client(espClient);
 // Objetos de Sensores o Actuadores
 DHT dht(DHT_PIN, DHTTYPE);
 
-//timestamp of the last telemetry update
+//---------------VARIABLES--------------------------
 unsigned long lastMsg = 0;
 int msgPeriod = 2000;       // Actualizar los datos cada 2 segundos
 float humidity = 0;
@@ -60,7 +59,8 @@ DynamicJsonDocument incoming_message(256);
 //Led state
 boolean estado = false;
 
-//Initiates WiFi Connection
+
+//--------------Initiates WiFi Connection------------------
 void setup_wifi() {
 
   delay(10);
@@ -84,6 +84,9 @@ void setup_wifi() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 }
+
+
+//----------------------------------FUNCION CALLBACK------------------------------------------
 
 //This method is called whenever a MQTT message arrives. We must be prepared for any type of incoming message.
 //We are subscribed to RPC Calls: v1/devices/me/rpc/request/+
@@ -109,6 +112,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     deserializeJson(incoming_message, payload);
     String metodo = incoming_message["method"];
 
+    //----------------------CHECK STATUS--------------------------------------------
     if (metodo == "checkStatus") { //Check device status. Expects a response to the same topic number with status=true.
 
       char outTopic[128];
@@ -121,6 +125,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       client.publish(outTopic, buffer);
     }
 
+    //----------------------SET LED STATUS------------------------------------------
     if (metodo == "setLedStatus") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
@@ -141,6 +146,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println(buffer);
     }
 
+
+    //-------------------------SET FAN1 STATUS----------------------------------------
     if (metodo == "setFan1Status") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
@@ -161,6 +168,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println(buffer);
     }
 
+
+      //-----------------------------SET BOMBA1 STATUS--------------------------------------
       if (metodo == "setBomba1Status") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
@@ -180,11 +189,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print("Publish message [attribute]: ");
       Serial.println(buffer);
     }
+    //------------------------------------------------------------------
     
-  }
+  }//FIN TOPIC START WITH 
 
-}
+}//FIN CALBACK
 
+
+//-----------FUNCION RECONNECT--------------------------------
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
@@ -203,18 +215,29 @@ void reconnect() {
     }
   }
 }
+//---------------------------------------------------------------
+
+
 
 void setup() {
+//--------PINMODES-------
   pinMode(LED1, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
   pinMode(FAN1, OUTPUT);
   pinMode(Bomba1, OUTPUT);
+  
+//--------SERIAL-----------
   Serial.begin(115200);
+
+//--------WIFI START--------
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-
+  
+//--------DHT SENSOR--------
   pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
   dht.begin();                        // Iniciar el sensor DHT
+
+  
 }
 
 void loop() {
@@ -225,17 +248,17 @@ void loop() {
   client.loop();
 
   unsigned long now = millis();
+  
   if (now - lastMsg > 2000) {
     lastMsg = now;
-   // temperature = dht.readTemperature();  // Leer la temperatura
-   // humidity = dht.readHumidity();        // Leer la humedad
-      temperature= 30;
-      humidity= 50;
+   //------LECTURAS DE SENSORES--------
+    
+  //temperature = dht.readTemperature();  
+  //humidity = dht.readHumidity();        
+    temperature= 30;
+    humidity= 50;
     humedad_terrestre = analogRead(hterrestre);
-    Serial.println(humedad_terrestre);
     humedad_terrestre = (1024 - humedad_terrestre)/5;
-    //Serial.println( humedad_terrestre);
-
     valorTanque = analogRead(pinTanque);
     if(valorTanque>valorReserva){
       estadoTanque = false;
@@ -243,6 +266,7 @@ void loop() {
       estadoTanque = true;
     }
 
+    //------REPORTE DE ATRIBUTOS--------
      DynamicJsonDocument resp(256);
       resp["Tanque1"] = estadoTanque;
       char buffer[256];
@@ -251,9 +275,8 @@ void loop() {
       Serial.print("Publish message [attribute]: ");
       Serial.println(buffer);
       
-
-    if (!isnan(temperature) && !isnan(humidity)) {
-      //Send value as telemetry
+    //------PUBLICACION TELEMETRIA-------
+    if (!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)) {
       DynamicJsonDocument resp(256);
       resp["temperatura"] = temperature;
       resp["humedad"] = humidity;
@@ -268,9 +291,10 @@ void loop() {
       Serial.print("Publicar mensaje [telemetry]: ");
       Serial.println("Failed to read from DHT sensor!");
     }
+    //------------------------------------
+
+  }//cierre if(now - lastMsg > 2000)
 
 
 
-  }
-
-}
+}//Fin del loop
