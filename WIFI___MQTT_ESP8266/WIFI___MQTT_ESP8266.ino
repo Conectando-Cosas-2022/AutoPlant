@@ -17,14 +17,14 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 
 
 // -----DRFINITIONS-----------------
-#define DHTTYPE DHT11 // DHT 11
-#define DHT_PIN 2   // Conexión en PIN D4
+//#define DHTTYPE DHT11 // DHT 11
+//#define DHT_PIN 2   // Conexión en PIN D4
 #define LED1 5  // pin D1
 #define FAN1 4 //Pin D2
-#define hterrestre A0 // pin A0 humedad terrestre
+//#define hterrestre A0 // pin A0 humedad terrestre
 #define Bomba1 16
-#define pinTanque A0
-#define valorReserva 500
+//#define pinTanque A0
+//#define valorReserva 500
 
 
 
@@ -251,47 +251,47 @@ void loop() {
   
   if (now - lastMsg > 2000) {
     lastMsg = now;
-   //------LECTURAS DE SENSORES--------
-    
-  //temperature = dht.readTemperature();  
-  //humidity = dht.readHumidity();        
-    temperature= 30;
-    humidity= 50;
-    humedad_terrestre = analogRead(hterrestre);
-    humedad_terrestre = (1024 - humedad_terrestre)/5;
-    valorTanque = analogRead(pinTanque);
-    if(valorTanque>valorReserva){
-      estadoTanque = false;
-    }else{
-      estadoTanque = true;
-    }
-
-    //------REPORTE DE ATRIBUTOS--------
-     DynamicJsonDocument resp(256);
-      resp["Tanque1"] = estadoTanque;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-      
-    //------PUBLICACION TELEMETRIA-------
-    if (!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)) {
-      DynamicJsonDocument resp(256);
-      resp["temperatura"] = temperature;
-      resp["humedad"] = humidity;
-      resp["humedad terrestre"] = humedad_terrestre;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/telemetry", buffer);
-
-      Serial.print("Publish message [telemetry]: ");
-      Serial.println(buffer);
-    } else {
-      Serial.print("Publicar mensaje [telemetry]: ");
-      Serial.println("Failed to read from DHT sensor!");
-    }
-    //------------------------------------
+//   //------LECTURAS DE SENSORES--------
+//    
+//  //temperature = dht.readTemperature();  
+//  //humidity = dht.readHumidity();        
+//    temperature= 30;
+//    humidity= 50;
+//    humedad_terrestre = analogRead(hterrestre);
+//    humedad_terrestre = (1024 - humedad_terrestre)/5;
+//    valorTanque = analogRead(pinTanque);
+//    if(valorTanque>valorReserva){
+//      estadoTanque = false;
+//    }else{
+//      estadoTanque = true;
+//    }
+//
+//    //------REPORTE DE ATRIBUTOS--------
+//     DynamicJsonDocument resp(256);
+//      resp["Tanque1"] = estadoTanque;
+//      char buffer[256];
+//      serializeJson(resp, buffer);
+//      client.publish("v1/devices/me/attributes", buffer);
+//      Serial.print("Publish message [attribute]: ");
+//      Serial.println(buffer);
+//      
+//    //------PUBLICACION TELEMETRIA-------
+//    if (!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)) {
+//      DynamicJsonDocument resp(256);
+//      resp["temperatura"] = temperature;
+//      resp["humedad"] = humidity;
+//      resp["humedad terrestre"] = humedad_terrestre;
+//      char buffer[256];
+//      serializeJson(resp, buffer);
+//      client.publish("v1/devices/me/telemetry", buffer);
+//
+//      Serial.print("Publish message [telemetry]: ");
+//      Serial.println(buffer);
+//    } else {
+//      Serial.print("Publicar mensaje [telemetry]: ");
+//      Serial.println("Failed to read from DHT sensor!");
+//    }
+//    //------------------------------------
 
   }//cierre if(now - lastMsg > 2000)
 
