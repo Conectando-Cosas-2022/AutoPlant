@@ -20,7 +20,9 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 //#define DHTTYPE DHT11 // DHT 11
 //#define DHT_PIN 2   // Conexión en PIN D4
 #define LED1 5  // pin D1
-#define FAN1 4 //Pin D2
+#define FAN1 15 //Pin D2
+#define FAN2 13
+#define FAN3 12
 //#define hterrestre A0 // pin A0 humedad terrestre
 #define Bomba1 16
 //#define pinTanque A0
@@ -33,7 +35,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Objetos de Sensores o Actuadores
-DHT dht(DHT_PIN, DHTTYPE);
+//DHT dht(DHT_PIN, DHTTYPE);
 
 //---------------VARIABLES--------------------------
 unsigned long lastMsg = 0;
@@ -152,7 +154,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       boolean estado = incoming_message["params"];
 
-      if (estado) {
+      if (!estado) {
         digitalWrite(FAN1, LOW); //turn on led
       } else {
         digitalWrite(FAN1, HIGH); //turn off led
@@ -161,6 +163,51 @@ void callback(char* topic, byte* payload, unsigned int length) {
       //Attribute update
       DynamicJsonDocument resp(256);
       resp["FAN1"] = estado;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    }
+    
+     //-------------------------SET FAN2 STATUS----------------------------------------
+    if (metodo == "setFan2Status") { //Set led status and update attribute value via MQTT
+
+      boolean estado = incoming_message["params"];
+      Serial.print(estado);
+
+      if (!estado) {
+        digitalWrite(FAN2, LOW); //turn on led
+        Serial.println("prender");
+      } else {
+        digitalWrite(FAN2, HIGH); //turn off led
+        Serial.println("apagar");
+      }
+
+      //Attribute update
+      DynamicJsonDocument resp(256);
+      resp["FAN2"] = estado;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    } 
+    
+    //-------------------------SET FAN1 STATUS----------------------------------------
+    if (metodo == "setFan3Status") { //Set led status and update attribute value via MQTT
+
+      boolean estado = incoming_message["params"];
+
+      if (!estado) {
+        digitalWrite(FAN3, LOW); //turn on led
+      } else {
+        digitalWrite(FAN3, HIGH); //turn off led
+      }
+
+      //Attribute update
+      DynamicJsonDocument resp(256);
+      resp["FAN3"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
@@ -182,7 +229,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       //Attribute update
       DynamicJsonDocument resp(256);
-      resp["Bomba1"] = estado;
+      resp["BOMBA1"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
@@ -223,6 +270,8 @@ void setup() {
 //--------PINMODES-------
   pinMode(LED1, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
   pinMode(FAN1, OUTPUT);
+  pinMode(FAN2, OUTPUT);
+  pinMode(FAN3, OUTPUT);
   pinMode(Bomba1, OUTPUT);
   
 //--------SERIAL-----------
@@ -234,8 +283,8 @@ void setup() {
   client.setCallback(callback);
   
 //--------DHT SENSOR--------
-  pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
-  dht.begin();                        // Iniciar el sensor DHT
+  //pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
+  //dht.begin();                        // Iniciar el sensor DHT
 
   
 }
@@ -251,6 +300,7 @@ void loop() {
   
   if (now - lastMsg > 2000) {
     lastMsg = now;
+    Serial.print("-");
 //   //------LECTURAS DE SENSORES--------
 //    
 //  //temperature = dht.readTemperature();  
