@@ -23,8 +23,8 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 #define FAN1 15 //Pin D2
 #define FAN2 13
 #define FAN3 12
-//#define hterrestre A0 // pin A0 humedad terrestre
 #define Bomba1 16
+//#define hterrestre A0 // pin A0 humedad terrestre
 //#define pinTanque A0
 //#define valorReserva 500
 
