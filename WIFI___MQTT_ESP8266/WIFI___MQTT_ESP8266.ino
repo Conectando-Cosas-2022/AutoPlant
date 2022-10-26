@@ -4,7 +4,7 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include "DHT.h"          // Biblioteca para trabajar con DHT 11 (Sensor de temperatura y humedad)
-
+#include <Adafruit_NeoPixel.h>
 
 
 // Update these with values suitable for your network.
@@ -19,7 +19,7 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 // -----DRFINITIONS-----------------
 //#define DHTTYPE DHT11 // DHT 11
 //#define DHT_PIN 2   // Conexión en PIN D4
-#define LED1 5  // pin D1
+#define LED1 14  // pin D1
 #define FAN1 15 //Pin D2
 #define FAN2 13
 #define FAN3 12
@@ -27,7 +27,9 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 //#define hterrestre A0 // pin A0 humedad terrestre
 //#define pinTanque A0
 //#define valorReserva 500
+#define NUMPIXELS 16
 
+Adafruit_NeoPixel pixels(NUMPIXELS, LED1, NEO_GRB + NEO_KHZ800);
 
 
 // Connection objects
@@ -88,6 +90,22 @@ void setup_wifi() {
 }
 
 
+//-----------------ON OF LED--------------------------------------
+void onLed(){
+  for(int i=0; i<NUMPIXELS; i++) { // For each pixel...
+    pixels.setPixelColor(i, pixels.Color(255,255, 100));
+  }
+  pixels.show(); 
+}
+
+void offLed(){
+  pixels.clear();
+}
+
+//------------------------------------------------------------
+
+
+
 //----------------------------------FUNCION CALLBACK------------------------------------------
 
 //This method is called whenever a MQTT message arrives. We must be prepared for any type of incoming message.
@@ -133,9 +151,16 @@ void callback(char* topic, byte* payload, unsigned int length) {
       boolean estado = incoming_message["params"];
 
       if (estado) {
-        digitalWrite(LED1, HIGH); //turn on led
+         for(int i=0; i<NUMPIXELS; i++) { // For each pixel...
+            pixels.setPixelColor(i, pixels.Color(255,255, 100));
+         }
+         pixels.show(); 
+        //digitalWrite(LED1, HIGH); //turn on led
       } else {
-        digitalWrite(LED1, LOW); //turn off led
+       pixels.clear();
+       pixels.show(); 
+       
+       // digitalWrite(LED1, LOW); //turn off led
       }
 
       //Attribute update
@@ -266,6 +291,12 @@ void reconnect() {
 
 
 
+
+
+
+
+
+
 void setup() {
 //--------PINMODES-------
   pinMode(LED1, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
@@ -286,7 +317,8 @@ void setup() {
   //pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
   //dht.begin();                        // Iniciar el sensor DHT
 
-  
+//---------LED------------
+ pixels.begin();
 }
 
 void loop() {
