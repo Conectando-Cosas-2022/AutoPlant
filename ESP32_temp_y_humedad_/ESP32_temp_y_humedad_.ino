@@ -45,10 +45,11 @@ DHT dht(DHT_PIN, DHTTYPE);
 
 // Declaración de variables para los datos a manipular
 unsigned long lastMsg = 0;  // Control de tiempo de reporte
-int msgPeriod = 10000;       // Actualizar los datos cada 2 segundos
+int msgPeriod = 2000;       // Actualizar los datos cada 2 segundos
 float humidity = 0;
 float temperature = 0;
 long humedad_terrestre = 0;
+long humedad_terrestre1 = 0;
 long valorTanque = 0;
 boolean estadoTanque = false;
 boolean led_state = false;
@@ -240,13 +241,17 @@ void loop() {
   if (now - lastMsg > msgPeriod) {
     lastMsg = now;
 
-    //temperature = dht.readTemperature();  // Leer la temperatura
-    //humidity = dht.readHumidity();        // Leer la humedad
-    //humedad_terrestre = analogRead(hterrestre);
-    temperature = 33;
-    humidity = 90;
-    humedad_terrestre = 40;
-    //humedad_terrestre = (1024 - humedad_terrestre) / 5;
+    temperature = dht.readTemperature();  // Leer la temperatura
+    humidity = dht.readHumidity();        // Leer la humedad
+    humedad_terrestre1 = analogRead(hterrestre);
+    if(humedad_terrestre1<1900){
+      humedad_terrestre1=1900;
+    }
+    //temperature = 33;
+    //humidity = 90;
+    //humedad_terrestre = 40;
+    Serial.println(humedad_terrestre1);
+    humedad_terrestre =  map(humedad_terrestre1,4095,1900,0,100);
     valorTanque = analogRead(pinTanque);
     Serial.println(valorTanque);
     if (valorTanque > valorReserva) {

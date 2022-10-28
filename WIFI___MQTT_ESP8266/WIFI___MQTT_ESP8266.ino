@@ -23,7 +23,7 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 #define FAN1 15 //Pin D2
 #define FAN2 13
 #define FAN3 12
-#define Bomba1 16
+#define Bomba1 5
 //#define hterrestre A0 // pin A0 humedad terrestre
 //#define pinTanque A0
 //#define valorReserva 500
@@ -219,7 +219,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println(buffer);
     } 
     
-    //-------------------------SET FAN1 STATUS----------------------------------------
+    //-------------------------SET FAN3 STATUS----------------------------------------
     if (metodo == "setFan3Status") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
