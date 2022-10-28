@@ -245,7 +245,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       if (metodo == "setBomba1Status") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
-
+  
       if (estado) {
         digitalWrite(Bomba1, LOW); //turn on bomba
       } else {
