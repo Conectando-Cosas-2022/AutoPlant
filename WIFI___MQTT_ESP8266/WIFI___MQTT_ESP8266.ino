@@ -8,8 +8,11 @@
 
 
 // Update these with values suitable for your network.
-const char* ssid = "HUAWEI-IoT";
-const char* password = "ORTWiFiIoT";
+//const char* ssid = "HUAWEI-IoT";
+//const char* password = "ORTWiFiIoT";
+
+const char* ssid     = "iPhone de Juan Pablo";
+const char* password = "jp123456";
 
 
 const char* mqtt_server = "demo.thingsboard.io";
