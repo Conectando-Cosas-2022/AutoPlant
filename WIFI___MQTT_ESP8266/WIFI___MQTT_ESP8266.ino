@@ -248,7 +248,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       if (metodo == "setBomba1Status") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
-  
+
       if (estado) {
         digitalWrite(Bomba1, LOW); //turn on bomba
       } else {
@@ -376,23 +376,20 @@ void loop() {
 //      Serial.print("Publish message [attribute]: ");
 //      Serial.println(buffer);
 //      
-//    //------PUBLICACION TELEMETRIA-------
-//    if (!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)) {
-//      DynamicJsonDocument resp(256);
-//      resp["temperatura"] = temperature;
-//      resp["humedad"] = humidity;
-//      resp["humedad terrestre"] = humedad_terrestre;
-//      char buffer[256];
-//      serializeJson(resp, buffer);
-//      client.publish("v1/devices/me/telemetry", buffer);
-//
-//      Serial.print("Publish message [telemetry]: ");
-//      Serial.println(buffer);
-//    } else {
-//      Serial.print("Publicar mensaje [telemetry]: ");
-//      Serial.println("Failed to read from DHT sensor!");
-//    }
-//    //------------------------------------
+   //------PUBLICACION TELEMETRIA-------
+   //if (!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)) {
+  //    DynamicJsonDocument resp(256);
+  //    resp["TETE"] = 3;
+  //    //resp["humedad"] = humidity;
+  //    //resp["humedad terrestre"] = humedad_terrestre;
+  //    char buffer[256];
+  //    serializeJson(resp, buffer);
+  //    client.publish("v1/devices/me/telemetry", buffer);
+
+  //    Serial.print("Publish message [telemetry]: ");
+  //    Serial.println(buffer);
+  //  //
+  //  //------------------------------------
 
   }//cierre if(now - lastMsg > 2000)
 
