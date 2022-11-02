@@ -264,6 +264,22 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print("Publish message [attribute]: ");
       Serial.println(buffer);
     }
+
+    
+    //-----------------------------SET MANUAL STATUS--------------------------------------
+      if (metodo == "setManualStatus") { //Set led status and update attribute value via MQTT
+
+      boolean estado = incoming_message["params"];
+
+      //Attribute update
+      DynamicJsonDocument resp(256);
+      resp["MANUAL"] = estado;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    }
     //------------------------------------------------------------------
     
   }//FIN TOPIC START WITH 
