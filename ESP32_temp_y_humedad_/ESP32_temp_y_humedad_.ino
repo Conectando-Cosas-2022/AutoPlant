@@ -148,7 +148,68 @@ void callback(char* topic, byte* payload, unsigned int length) {
       client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
       Serial.print("Publish message [attribute]: ");
       Serial.println(buffer);
+    } //----------------------SET TemperaturaAlta VALUE------------------------------------------
+    else if (metodo == "setTemperaturaAltaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
+
+      int valor = incoming_message["params"]; // Leer los parámetros del método
+
+     
+
+      // Actualizar el atributo relacionado
+      DynamicJsonDocument resp(256);
+      resp["TemperaturaAlta"] = valor;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    } //----------------------SET HumedadMedia VALUE------------------------------------------
+    else if (metodo == "setHumedadMediaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
+
+      int valor = incoming_message["params"]; // Leer los parámetros del método
+
+     
+
+      // Actualizar el atributo relacionado
+      DynamicJsonDocument resp(256);
+      resp["HumedadMedia"] = valor;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    } //----------------------SET HumedadAlta VALUE------------------------------------------
+    else if (metodo == "setHumedadAltaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
+
+      int valor = incoming_message["params"]; // Leer los parámetros del método
+
+     
+
+      // Actualizar el atributo relacionado
+      DynamicJsonDocument resp(256);
+      resp["HumedadAlta"] = valor;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
+    } //----------------------SET TemperaturaBaja VALUE------------------------------------------
+    else if (metodo == "setHumedadTerrestreBajaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
+
+      int valor = incoming_message["params"]; // Leer los parámetros del método
+
+     
+
+      // Actualizar el atributo relacionado
+      DynamicJsonDocument resp(256);
+      resp["HumedadTerrestreBaja"] = valor;
+      char buffer[256];
+      serializeJson(resp, buffer);
+      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
+      Serial.print("Publish message [attribute]: ");
+      Serial.println(buffer);
     }
+
 
   }
 
