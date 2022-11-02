@@ -265,7 +265,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println(buffer);
     }
 
-    
+
     //-----------------------------SET MANUAL STATUS--------------------------------------
       if (metodo == "setManualStatus") { //Set led status and update attribute value via MQTT
 
