@@ -153,7 +153,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       int valor = incoming_message["params"]; // Leer los parámetros del método
 
-     
+
 
       // Actualizar el atributo relacionado
       DynamicJsonDocument resp(256);
@@ -168,7 +168,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       int valor = incoming_message["params"]; // Leer los parámetros del método
 
-     
+
 
       // Actualizar el atributo relacionado
       DynamicJsonDocument resp(256);
@@ -183,7 +183,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       int valor = incoming_message["params"]; // Leer los parámetros del método
 
-     
+
 
       // Actualizar el atributo relacionado
       DynamicJsonDocument resp(256);
@@ -198,7 +198,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       int valor = incoming_message["params"]; // Leer los parámetros del método
 
-     
+
 
       // Actualizar el atributo relacionado
       DynamicJsonDocument resp(256);
@@ -280,6 +280,23 @@ void setup() {
   pinMode(pinTanque, INPUT);
   pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
   dht.begin();                        // Iniciar el sensor DHT
+
+
+  //------REPORTE DE ATRIBUTOS--------
+  DynamicJsonDocument resp(256);
+  resp[""] = NULL;
+  char buffer[256];
+  serializeJson(resp, buffer);
+  
+  DynamicJsonDocument resp2(256);
+  client.subscribe("v1/devices/me/attributes/response/+");
+  
+  
+  
+  Serial.print("Publish message [attribute]: ");
+  Serial.println(buffer);
+
+
 }
 
 /*========= BUCLE PRINCIPAL =========*/
@@ -293,6 +310,12 @@ void loop() {
 
   client.loop();              // Controlar si hay mensajes entrantes o para enviar al servidor
 
+  DynamicJsonDocument resp(256);
+  resp[""] = NULL;
+  char buffer[256];
+  serializeJson(resp, buffer);
+  client.publish("v1/devices/me/attributes/request/",buffer);
+  
   // === Realizar las tareas asignadas al dispositivo ===
   // En este caso se medirá temperatura y humedad para reportar periódicamente
   // El control de tiempo se hace con millis para que no sea bloqueante y en "paralelo" completar
@@ -305,14 +328,14 @@ void loop() {
     temperature = dht.readTemperature();  // Leer la temperatura
     humidity = dht.readHumidity();        // Leer la humedad
     humedad_terrestre1 = analogRead(hterrestre);
-    if(humedad_terrestre1<1900){
-      humedad_terrestre1=1900;
+    if (humedad_terrestre1 < 1900) {
+      humedad_terrestre1 = 1900;
     }
     //temperature = 33;
     //humidity = 90;
     //humedad_terrestre = 40;
     Serial.println(humedad_terrestre1);
-    humedad_terrestre =  map(humedad_terrestre1,4095,1900,0,100);
+    humedad_terrestre =  map(humedad_terrestre1, 4095, 1900, 0, 100);
     valorTanque = analogRead(pinTanque);
     Serial.println(valorTanque);
     if (valorTanque > valorReserva) {
@@ -321,24 +344,26 @@ void loop() {
       estadoTanque = true;
     }
 
-    
-  //------REPORTE DE ATRIBUTOS--------
-     DynamicJsonDocument resp(256);
-      resp["Tanque1"] = estadoTanque;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-      
 
-    if (!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)) {
+    //------REPORTE DE ATRIBUTOS--------
+    DynamicJsonDocument resp(256);
+    resp["TanqueVacio"] = estadoTanque;
+    char buffer[256];
+    serializeJson(resp, buffer);
+    client.publish("v1/devices/me/attributes", buffer);
+    Serial.print("Publish message [attribute]: ");
+    Serial.println(buffer);
+
+
+
+
+    if (true) {//!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)
       // Publicar los datos en el tópio de telemetría para que el servidor los reciba
       DynamicJsonDocument resp(256);
       resp["temperatura"] = temperature;
       resp["humedad"] = humidity;
       resp["humedad_terrestre"] = humedad_terrestre;
-      
+
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/telemetry", buffer);  // Publica el mensaje de telemetría
