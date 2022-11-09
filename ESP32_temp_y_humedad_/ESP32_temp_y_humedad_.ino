@@ -282,19 +282,15 @@ void setup() {
   dht.begin();                        // Iniciar el sensor DHT
 
 
-  //------REPORTE DE ATRIBUTOS--------
-  DynamicJsonDocument resp(256);
-  resp[""] = NULL;
-  char buffer[256];
-  serializeJson(resp, buffer);
-  
-  DynamicJsonDocument resp2(256);
-  client.subscribe("v1/devices/me/attributes/response/+");
-  
-  
-  
-  Serial.print("Publish message [attribute]: ");
-  Serial.println(buffer);
+//  //------REPORTE DE ATRIBUTOS--------
+//  DynamicJsonDocument resp(256);
+//  resp[""] = NULL;
+//  char buffer[256];
+//  serializeJson(resp, buffer);
+//  DynamicJsonDocument resp2(256);
+//  client.subscribe("v1/devices/me/attributes/response/+");
+//  Serial.print("Publish message [attribute]: ");
+//  Serial.println(buffer);
 
 
 }
@@ -310,11 +306,11 @@ void loop() {
 
   client.loop();              // Controlar si hay mensajes entrantes o para enviar al servidor
 
-  DynamicJsonDocument resp(256);
-  resp[""] = NULL;
-  char buffer[256];
-  serializeJson(resp, buffer);
-  client.publish("v1/devices/me/attributes/request/",buffer);
+//  DynamicJsonDocument resp(256);
+//  resp[""] = NULL;
+//  char buffer[256];
+//  serializeJson(resp, buffer);
+//  client.publish("v1/devices/me/attributes/request/",buffer);
   
   // === Realizar las tareas asignadas al dispositivo ===
   // En este caso se medirá temperatura y humedad para reportar periódicamente
