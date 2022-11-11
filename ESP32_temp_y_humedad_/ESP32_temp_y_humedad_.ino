@@ -324,9 +324,9 @@ void loop() {
     temperature = dht.readTemperature();  // Leer la temperatura
     humidity = dht.readHumidity();        // Leer la humedad
     humedad_terrestre1 = analogRead(hterrestre);
-    if (humedad_terrestre1 < 1900) {
-      humedad_terrestre1 = 1900;
-    }
+//    if (humedad_terrestre1 < 1900) {
+//      humedad_terrestre1 = 1900;
+//    }
     //temperature = 33;
     //humidity = 90;
     //humedad_terrestre = 40;
