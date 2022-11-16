@@ -168,7 +168,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       //Attribute update
       DynamicJsonDocument resp(256);
-      resp["LED1"] = estado;
+      resp["LIGHTS"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
@@ -177,8 +177,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
 
 
-    //-------------------------SET FAN1 STATUS----------------------------------------
-    if (metodo == "setFan1Status") { //Set led status and update attribute value via MQTT
+    //-------------------------SET ExOk STATUS----------------------------------------
+    if (metodo == "setExOkStatus") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
 
@@ -190,7 +190,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       //Attribute update
       DynamicJsonDocument resp(256);
-      resp["FAN1"] = estado;
+      resp["EXOK"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
@@ -198,8 +198,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println(buffer);
     }
     
-     //-------------------------SET FAN2 STATUS----------------------------------------
-    if (metodo == "setFan2Status") { //Set led status and update attribute value via MQTT
+     //-------------------------SET Ex2 STATUS----------------------------------------
+    if (metodo == "setEx2Status") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
       Serial.print(estado);
@@ -214,7 +214,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       //Attribute update
       DynamicJsonDocument resp(256);
-      resp["FAN2"] = estado;
+      resp["EX2"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
@@ -222,8 +222,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println(buffer);
     } 
     
-    //-------------------------SET FAN3 STATUS----------------------------------------
-    if (metodo == "setFan3Status") { //Set led status and update attribute value via MQTT
+    //-------------------------SET FAN1 STATUS----------------------------------------
+    if (metodo == "setFan1Status") { //Set led status and update attribute value via MQTT
 
       boolean estado = incoming_message["params"];
 
@@ -235,7 +235,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       //Attribute update
       DynamicJsonDocument resp(256);
-      resp["FAN3"] = estado;
+      resp["FAN1"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
@@ -266,21 +266,21 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
 
 
-    //-----------------------------SET MANUAL STATUS--------------------------------------
-      if (metodo == "setManualStatus") { //Set led status and update attribute value via MQTT
-
-      boolean estado = incoming_message["params"];
-
-      //Attribute update
-      DynamicJsonDocument resp(256);
-      resp["MANUAL"] = estado;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-    }
-    //------------------------------------------------------------------
+//    //-----------------------------SET MANUAL STATUS--------------------------------------
+//      if (metodo == "setControlManualStatus") { //Set led status and update attribute value via MQTT
+//
+//      boolean estado = incoming_message["params"];
+//
+//      //Attribute update
+//      DynamicJsonDocument resp(256);
+//      resp["MANUAL"] = estado;
+//      char buffer[256];
+//      serializeJson(resp, buffer);
+//      client.publish("v1/devices/me/attributes", buffer);
+//      Serial.print("Publish message [attribute]: ");
+//      Serial.println(buffer);
+//    }
+//    //------------------------------------------------------------------
     
   }//FIN TOPIC START WITH 
 

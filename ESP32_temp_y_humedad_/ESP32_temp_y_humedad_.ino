@@ -46,6 +46,8 @@ DHT dht(DHT_PIN, DHTTYPE);
 // Declaración de variables para los datos a manipular
 unsigned long lastMsg = 0;  // Control de tiempo de reporte
 int msgPeriod = 2000;       // Actualizar los datos cada 2 segundos
+unsigned long lastMsg2 = 0;  // Control de tiempo de reporte humedad terrestre
+int msgPeriod2 = 10000;       // Actualizar los datos cada 10 segundos
 float humidity = 0;
 float temperature = 0;
 long humedad_terrestre = 0;
@@ -282,15 +284,15 @@ void setup() {
   dht.begin();                        // Iniciar el sensor DHT
 
 
-//  //------REPORTE DE ATRIBUTOS--------
-//  DynamicJsonDocument resp(256);
-//  resp[""] = NULL;
-//  char buffer[256];
-//  serializeJson(resp, buffer);
-//  DynamicJsonDocument resp2(256);
-//  client.subscribe("v1/devices/me/attributes/response/+");
-//  Serial.print("Publish message [attribute]: ");
-//  Serial.println(buffer);
+  //  //------REPORTE DE ATRIBUTOS--------
+  //  DynamicJsonDocument resp(256);
+  //  resp[""] = NULL;
+  //  char buffer[256];
+  //  serializeJson(resp, buffer);
+  //  DynamicJsonDocument resp2(256);
+  //  client.subscribe("v1/devices/me/attributes/response/+");
+  //  Serial.print("Publish message [attribute]: ");
+  //  Serial.println(buffer);
 
 
 }
@@ -306,12 +308,12 @@ void loop() {
 
   client.loop();              // Controlar si hay mensajes entrantes o para enviar al servidor
 
-//  DynamicJsonDocument resp(256);
-//  resp[""] = NULL;
-//  char buffer[256];
-//  serializeJson(resp, buffer);
-//  client.publish("v1/devices/me/attributes/request/",buffer);
-  
+  //  DynamicJsonDocument resp(256);
+  //  resp[""] = NULL;
+  //  char buffer[256];
+  //  serializeJson(resp, buffer);
+  //  client.publish("v1/devices/me/attributes/request/",buffer);
+
   // === Realizar las tareas asignadas al dispositivo ===
   // En este caso se medirá temperatura y humedad para reportar periódicamente
   // El control de tiempo se hace con millis para que no sea bloqueante y en "paralelo" completar
@@ -324,14 +326,15 @@ void loop() {
     temperature = dht.readTemperature();  // Leer la temperatura
     humidity = dht.readHumidity();        // Leer la humedad
     humedad_terrestre1 = analogRead(hterrestre);
-//    if (humedad_terrestre1 < 1900) {
-//      humedad_terrestre1 = 1900;
-//    }
+    //    if (humedad_terrestre1 < 1900) {
+    //      humedad_terrestre1 = 1900;
+    //    }
     //temperature = 33;
     //humidity = 90;
     //humedad_terrestre = 40;
     Serial.println(humedad_terrestre1);
-    humedad_terrestre =  map(humedad_terrestre1, 4095, 1900, 0, 100);
+    humedad_terrestre =  map(humedad_terrestre1, 4095, 300, 0, 100);
+
     valorTanque = analogRead(pinTanque);
     Serial.println(valorTanque);
     if (valorTanque > valorReserva) {
@@ -352,25 +355,44 @@ void loop() {
 
 
 
+    unsigned long now2 = millis();
+    if (now2 - lastMsg2 > msgPeriod2) { //!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)
+      lastMsg2 = now2;
+      if (true) {
+        // Publicar los datos en el tópio de telemetría para que el servidor los reciba
+        DynamicJsonDocument resp(256);
+        resp["temperatura"] = temperature;
+        resp["humedad"] = humidity;
+        resp["humedad_terrestre"] = humedad_terrestre;
 
-    if (true) {//!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)
-      // Publicar los datos en el tópio de telemetría para que el servidor los reciba
-      DynamicJsonDocument resp(256);
-      resp["temperatura"] = temperature;
-      resp["humedad"] = humidity;
-      resp["humedad_terrestre"] = humedad_terrestre;
+        char buffer[256];
+        serializeJson(resp, buffer);
+        client.publish("v1/devices/me/telemetry", buffer);  // Publica el mensaje de telemetría
 
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/telemetry", buffer);  // Publica el mensaje de telemetría
-
-      Serial.print("Publicar mensaje [telemetry]: ");
-      Serial.println(buffer);
+        Serial.print("Publicar mensaje [telemetry]: ");
+        Serial.println(buffer);
+      } else {
+        Serial.print("Publicar mensaje [telemetry]: ");
+        Serial.println("Failed to read from DHT sensor!");
+      }
     } else {
-      Serial.print("Publicar mensaje [telemetry]: ");
-      Serial.println("Failed to read from DHT sensor!");
+      if (true) {
+        DynamicJsonDocument resp(256);
+        resp["temperatura"] = temperature;
+        resp["humedad"] = humidity;
+
+        char buffer[256];
+        serializeJson(resp, buffer);
+        client.publish("v1/devices/me/telemetry", buffer);  // Publica el mensaje de telemetría
+
+        Serial.print("Publicar mensaje [telemetry]: ");
+        Serial.println(buffer);
+      } else {
+        Serial.print("Publicar mensaje [telemetry]: ");
+        Serial.println("Failed to read from DHT sensor!");
+      }
+
+
     }
-
-
   }
 }
