@@ -168,7 +168,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
       //Attribute update
       DynamicJsonDocument resp(256);
-      resp["LIGHTS"] = estado;
+      resp["LED1"] = estado;
       char buffer[256];
       serializeJson(resp, buffer);
       client.publish("v1/devices/me/attributes", buffer);
