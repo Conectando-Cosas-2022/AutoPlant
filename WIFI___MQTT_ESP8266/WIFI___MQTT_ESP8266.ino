@@ -22,11 +22,11 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 // -----DRFINITIONS-----------------
 //#define DHTTYPE DHT11 // DHT 11
 //#define DHT_PIN 2   // Conexión en PIN D4
-#define LED1 14  // pin D1
-#define FAN1 15 //Pin D2
-#define FAN2 13
-#define FAN3 12
-#define Bomba1 5
+#define LED1 14  // pin D5
+#define FAN1 15 //Pin D8
+#define FAN2 13 // D7
+#define FAN3 12 // D6
+#define Bomba1 5 // D1
 //#define hterrestre A0 // pin A0 humedad terrestre
 //#define pinTanque A0
 //#define valorReserva 500
