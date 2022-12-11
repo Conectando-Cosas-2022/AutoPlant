@@ -1,6 +1,13 @@
-//Probando GIT
-//ESP-32
-//Sensor temperatura humedad ambiente
+/////////////////////////////////////////////////////////////
+//////////////////////// AUTOPLANT //////////////////////////
+//////////////// Proyecto integrador 2 2022 /////////////////
+/////////////////////////////////////////////////////////////
+///////// Nicolas Nemmer - Juan Pablo Peyroulou /////////////
+///// Prof. Emiliano Espíndola - Prof. Juan Pedro Silva /////
+/////////////////////////////////////////////////////////////
+///////////////////// Universidad ORT ///////////////////////
+/////////////////////////////////////////////////////////////
+
 
 /*========= BIBLIOTECAS =========*/
 
@@ -27,12 +34,12 @@ const int mqtt_port = 1883;
 const char* token = "BSFzRuWLb9m9vIndPfJG";
 
 // Tipo de sensor
-#define DHTTYPE DHT11 // DHT 11
-#define DHT_PIN 21   // Conexión en PIN D21
-#define hterrestre 33
-#define pinTanque 32
+#define DHTTYPE DHT11    // tipo de DHT 
+#define DHT_PIN 21       // DHT en PIN D21
+#define hterrestre 33    // Hum Terrestre en pin D33
+#define pinTanque 32     // Sensor tanque en Pin D32
 #define LED 2
-#define valorReserva 500
+#define valorReserva 500 // Valor umbral 
 
 /*========= VARIABLES =========*/
 
@@ -44,9 +51,9 @@ PubSubClient client(espClient);   // Objeto de conexión MQTT
 DHT dht(DHT_PIN, DHTTYPE);
 
 // Declaración de variables para los datos a manipular
-unsigned long lastMsg = 0;  // Control de tiempo de reporte
-int msgPeriod = 2000;       // Actualizar los datos cada 2 segundos
-unsigned long lastMsg2 = 0;  // Control de tiempo de reporte humedad terrestre
+unsigned long lastMsg = 0;    // Control de tiempo de reporte
+int msgPeriod = 2000;         // Actualizar los datos cada 2 segundos
+unsigned long lastMsg2 = 0;   // Control de tiempo de reporte humedad terrestre
 int msgPeriod2 = 10000;       // Actualizar los datos cada 10 segundos
 float humidity = 0;
 float temperature = 0;
@@ -74,7 +81,6 @@ void setup_wifi() {
   Serial.print("Conectando a: ");
   Serial.println(ssid);
 
-  //WiFi.mode(WIFI_STA); // Declarar la ESP como STATION
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -129,89 +135,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       serializeJson(resp, buffer);
       client.publish(outTopic, buffer);
 
-    }  //----------------------SET LED STATUS------------------------------------------
-    else if (metodo == "setLedStatus") { // Establecer el estado del led y reflejar en el atributo relacionado
-
-      boolean estado = incoming_message["params"]; // Leer los parámetros del método
-
-      if (estado) {
-        digitalWrite(LED, LOW); // Encender LED
-        Serial.println("Encender LED");
-      } else {
-        digitalWrite(LED, HIGH); // Apagar LED
-        Serial.println("Apagar LED");
-      }
-
-      // Actualizar el atributo relacionado
-      DynamicJsonDocument resp(256);
-      resp["estado"] = !digitalRead(LED);
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-    } //----------------------SET TemperaturaAlta VALUE------------------------------------------
-    else if (metodo == "setTemperaturaAltaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
-
-      int valor = incoming_message["params"]; // Leer los parámetros del método
-
-
-
-      // Actualizar el atributo relacionado
-      DynamicJsonDocument resp(256);
-      resp["TemperaturaAlta"] = valor;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-    } //----------------------SET HumedadMedia VALUE------------------------------------------
-    else if (metodo == "setHumedadMediaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
-
-      int valor = incoming_message["params"]; // Leer los parámetros del método
-
-
-
-      // Actualizar el atributo relacionado
-      DynamicJsonDocument resp(256);
-      resp["HumedadMedia"] = valor;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-    } //----------------------SET HumedadAlta VALUE------------------------------------------
-    else if (metodo == "setHumedadAltaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
-
-      int valor = incoming_message["params"]; // Leer los parámetros del método
-
-
-
-      // Actualizar el atributo relacionado
-      DynamicJsonDocument resp(256);
-      resp["HumedadAlta"] = valor;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-    } //----------------------SET TemperaturaBaja VALUE------------------------------------------
-    else if (metodo == "setHumedadTerrestreBajaValue") { // Establecer el estado del led y reflejar en el atributo relacionado
-
-      int valor = incoming_message["params"]; // Leer los parámetros del método
-
-
-
-      // Actualizar el atributo relacionado
-      DynamicJsonDocument resp(256);
-      resp["HumedadTerrestreBaja"] = valor;
-      char buffer[256];
-      serializeJson(resp, buffer);
-      client.publish("v1/devices/me/attributes", buffer);  //Topico para actualizar atributos
-      Serial.print("Publish message [attribute]: ");
-      Serial.println(buffer);
-    }
-
+    }  
 
   }
 
@@ -244,6 +168,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
 }
+
 // Establecer y mantener la conexión con el servidor MQTT (En este caso de ThingsBoard)
 void reconnect() {
   // Bucle hasta lograr la conexión
@@ -271,28 +196,17 @@ void reconnect() {
 
 void setup() {
   // Conectividad
-  Serial.begin(115200);                   // Inicializar conexión Serie para utilizar el Monitor
-  setup_wifi();                           // Establecer la conexión WiFi
-  client.setServer(mqtt_server, mqtt_port);// Establecer los datos para la conexión MQTT
-  client.setCallback(callback);           // Establecer la función del callback para la llegada de mensajes en tópicos suscriptos
+  Serial.begin(115200);                     // Inicializar conexión Serie para utilizar el Monitor
+  setup_wifi();                             // Establecer la conexión WiFi
+  client.setServer(mqtt_server, mqtt_port); // Establecer los datos para la conexión MQTT
+  client.setCallback(callback);             // Establecer la función del callback para la llegada de mensajes en tópicos suscriptos
 
   // Sensores y actuadores
-  pinMode(LED, OUTPUT);       // Inicializar el LED como salida
-  pinMode(hterrestre, INPUT);
-  pinMode(pinTanque, INPUT);
-  pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
-  dht.begin();                        // Iniciar el sensor DHT
-
-
-  //  //------REPORTE DE ATRIBUTOS--------
-  //  DynamicJsonDocument resp(256);
-  //  resp[""] = NULL;
-  //  char buffer[256];
-  //  serializeJson(resp, buffer);
-  //  DynamicJsonDocument resp2(256);
-  //  client.subscribe("v1/devices/me/attributes/response/+");
-  //  Serial.print("Publish message [attribute]: ");
-  //  Serial.println(buffer);
+  pinMode(LED, OUTPUT);                     // Inicializar el LED como salida
+  pinMode(hterrestre, INPUT);               // Inicializar el sensor terrestre como entrada
+  pinMode(pinTanque, INPUT);                // Inicializar el sensor nivel de agua como entrada
+  pinMode(DHT_PIN, INPUT);                  // Inicializar el DHT como entrada
+  dht.begin();                              // Iniciar el sensor DHT
 
 
 }
@@ -308,36 +222,20 @@ void loop() {
 
   client.loop();              // Controlar si hay mensajes entrantes o para enviar al servidor
 
-  //  DynamicJsonDocument resp(256);
-  //  resp[""] = NULL;
-  //  char buffer[256];
-  //  serializeJson(resp, buffer);
-  //  client.publish("v1/devices/me/attributes/request/",buffer);
-
   // === Realizar las tareas asignadas al dispositivo ===
-  // En este caso se medirá temperatura y humedad para reportar periódicamente
-  // El control de tiempo se hace con millis para que no sea bloqueante y en "paralelo" completar
-  // ciclos del bucle principal
 
   unsigned long now = millis();
-  if (now - lastMsg > msgPeriod) {
+  if (now - lastMsg > msgPeriod) {                   // Repetir solo cada 2 segundos
     lastMsg = now;
 
-    temperature = dht.readTemperature();  // Leer la temperatura
-    humidity = dht.readHumidity();        // Leer la humedad
-    humedad_terrestre1 = analogRead(hterrestre);
-    //    if (humedad_terrestre1 < 1900) {
-    //      humedad_terrestre1 = 1900;
-    //    }
-    //temperature = 33;
-    //humidity = 90;
-    //humedad_terrestre = 40;
-    Serial.println(humedad_terrestre1);
-    humedad_terrestre =  map(humedad_terrestre1, 4095, 300, 0, 100);
+    temperature = dht.readTemperature();             // Leer la temperatura
+    humidity = dht.readHumidity();                   // Leer la humedad
+    
+    humedad_terrestre1 = analogRead(hterrestre);     //Leer humedad terrestre
+    humedad_terrestre =  map(humedad_terrestre1, 4095, 300, 0, 100); //mapeo de humedad terrestre a porcentaje
 
-    valorTanque = analogRead(pinTanque);
-    Serial.println(valorTanque);
-    if (valorTanque > valorReserva) {
+    valorTanque = analogRead(pinTanque);             //Leer valor del nivel de agua
+    if (valorTanque > valorReserva) {                // Convertir a true o false
       estadoTanque = false;
     } else {
       estadoTanque = true;
@@ -356,9 +254,9 @@ void loop() {
 
 
     unsigned long now2 = millis();
-    if (now2 - lastMsg2 > msgPeriod2) { //!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)
+    if (now2 - lastMsg2 > msgPeriod2) {        // Repetir solo cada 10 segundos
       lastMsg2 = now2;
-      if (true) {
+      
         // Publicar los datos en el tópio de telemetría para que el servidor los reciba
         DynamicJsonDocument resp(256);
         resp["temperatura"] = temperature;
@@ -371,12 +269,9 @@ void loop() {
 
         Serial.print("Publicar mensaje [telemetry]: ");
         Serial.println(buffer);
-      } else {
-        Serial.print("Publicar mensaje [telemetry]: ");
-        Serial.println("Failed to read from DHT sensor!");
-      }
-    } else {
-      if (true) {
+      
+    } else {                                 // Repetir cada 2 segundos
+      
         DynamicJsonDocument resp(256);
         resp["temperatura"] = temperature;
         resp["humedad"] = humidity;
@@ -387,12 +282,7 @@ void loop() {
 
         Serial.print("Publicar mensaje [telemetry]: ");
         Serial.println(buffer);
-      } else {
-        Serial.print("Publicar mensaje [telemetry]: ");
-        Serial.println("Failed to read from DHT sensor!");
-      }
-
-
+      
     }
   }
 }

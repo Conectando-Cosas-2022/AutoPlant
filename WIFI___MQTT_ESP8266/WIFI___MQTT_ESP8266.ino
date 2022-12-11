@@ -1,13 +1,24 @@
 
+/////////////////////////////////////////////////////////////
+//////////////////////// AUTOPLANT //////////////////////////
+//////////////// Proyecto integrador 2 2022 /////////////////
+/////////////////////////////////////////////////////////////
+///////// Nicolas Nemmer - Juan Pablo Peyroulou /////////////
+///// Prof. Emiliano Espíndola - Prof. Juan Pedro Silva /////
+/////////////////////////////////////////////////////////////
+///////////////////// Universidad ORT ///////////////////////
+/////////////////////////////////////////////////////////////
 
+/*========= BIBLIOTECAS =========*/
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include "DHT.h"          // Biblioteca para trabajar con DHT 11 (Sensor de temperatura y humedad)
 #include <Adafruit_NeoPixel.h>
 
+/*========= CONSTANTES =========*/
 
-// Update these with values suitable for your network.
+// Credenciales de la redWiFi
 //const char* ssid = "HUAWEI-IoT";
 //const char* password = "ORTWiFiIoT";
 
@@ -20,17 +31,12 @@ const char* token = "11QHcVqS0n3q8OvO22k1";
 
 
 // -----DRFINITIONS-----------------
-//#define DHTTYPE DHT11 // DHT 11
-//#define DHT_PIN 2   // Conexión en PIN D4
-#define LED1 14  // pin D5
-#define FAN1 15 //Pin D8
-#define FAN2 13 // D7
-#define FAN3 12 // D6
-#define Bomba1 5 // D1
-//#define hterrestre A0 // pin A0 humedad terrestre
-//#define pinTanque A0
-//#define valorReserva 500
-#define NUMPIXELS 16
+#define LED1 14        // Luces en pin D5
+#define FAN1 15        //Ventilador 1 en Pin D8
+#define FAN2 13        //Ventilador 2 en Pin D7
+#define FAN3 12        //Ventilador 3 en Pin D6
+#define Bomba1 5       //Bomba en pin D1
+#define NUMPIXELS 16   //Numero de leds Luces
 
 Adafruit_NeoPixel pixels(NUMPIXELS, LED1, NEO_GRB + NEO_KHZ800);
 
@@ -39,8 +45,6 @@ Adafruit_NeoPixel pixels(NUMPIXELS, LED1, NEO_GRB + NEO_KHZ800);
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// Objetos de Sensores o Actuadores
-//DHT dht(DHT_PIN, DHTTYPE);
 
 //---------------VARIABLES--------------------------
 unsigned long lastMsg = 0;
@@ -59,9 +63,6 @@ char msg2[MSG_BUFFER_SIZE];
 
 //json document to store incoming messages
 DynamicJsonDocument incoming_message(256);
-
-////Fake telemetry
-//int value = 0;
 
 //Led state
 boolean estado = false;
@@ -91,21 +92,6 @@ void setup_wifi() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 }
-
-
-//-----------------ON OF LED--------------------------------------
-void onLed(){
-  for(int i=0; i<NUMPIXELS; i++) { // For each pixel...
-    pixels.setPixelColor(i, pixels.Color(255,255, 100));
-  }
-  pixels.show(); 
-}
-
-void offLed(){
-  pixels.clear();
-}
-
-//------------------------------------------------------------
 
 
 
@@ -158,12 +144,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
             pixels.setPixelColor(i, pixels.Color(255,255, 100));
          }
          pixels.show(); 
-        //digitalWrite(LED1, HIGH); //turn on led
       } else {
        pixels.clear();
        pixels.show(); 
-       
-       // digitalWrite(LED1, LOW); //turn off led
       }
 
       //Attribute update
@@ -183,9 +166,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
       boolean estado = incoming_message["params"];
 
       if (!estado) {
-        digitalWrite(FAN1, LOW); //turn on led
+        digitalWrite(FAN1, LOW);    //Apagar Extractor
       } else {
-        digitalWrite(FAN1, HIGH); //turn off led
+        digitalWrite(FAN1, HIGH);   //Prender Extractor
       }
 
       //Attribute update
@@ -205,11 +188,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print(estado);
 
       if (!estado) {
-        digitalWrite(FAN2, LOW); //turn on led
-        Serial.println("prender");
+        digitalWrite(FAN2, LOW);    //Apagar Extractor
       } else {
-        digitalWrite(FAN2, HIGH); //turn off led
-        Serial.println("apagar");
+        digitalWrite(FAN2, HIGH);   //Prender Extractor
       }
 
       //Attribute update
@@ -228,9 +209,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
       boolean estado = incoming_message["params"];
 
       if (!estado) {
-        digitalWrite(FAN3, LOW); //turn on led
+        digitalWrite(FAN3, LOW);   //Apagar Extractor
       } else {
-        digitalWrite(FAN3, HIGH); //turn off led
+        digitalWrite(FAN3, HIGH);  //Prender Extractor
       }
 
       //Attribute update
@@ -250,9 +231,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
       boolean estado = incoming_message["params"];
 
       if (estado) {
-        digitalWrite(Bomba1, LOW); //turn on bomba
+        digitalWrite(Bomba1, LOW); //turn OFF bomba
       } else {
-        digitalWrite(Bomba1, HIGH); //turn off bomba
+        digitalWrite(Bomba1, HIGH); //turn ON bomba
       }
 
       //Attribute update
@@ -264,23 +245,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print("Publish message [attribute]: ");
       Serial.println(buffer);
     }
-
-
-//    //-----------------------------SET MANUAL STATUS--------------------------------------
-//      if (metodo == "setControlManualStatus") { //Set led status and update attribute value via MQTT
-//
-//      boolean estado = incoming_message["params"];
-//
-//      //Attribute update
-//      DynamicJsonDocument resp(256);
-//      resp["MANUAL"] = estado;
-//      char buffer[256];
-//      serializeJson(resp, buffer);
-//      client.publish("v1/devices/me/attributes", buffer);
-//      Serial.print("Publish message [attribute]: ");
-//      Serial.println(buffer);
-//    }
-//    //------------------------------------------------------------------
     
   }//FIN TOPIC START WITH 
 
@@ -309,35 +273,25 @@ void reconnect() {
 //---------------------------------------------------------------
 
 
-
-
-
-
-
-
-
 void setup() {
+  
 //--------PINMODES-------
-  pinMode(LED1, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
-  pinMode(FAN1, OUTPUT);
-  pinMode(FAN2, OUTPUT);
-  pinMode(FAN3, OUTPUT);
-  pinMode(Bomba1, OUTPUT);
+  pinMode(LED1, OUTPUT);     //Inicializar LED1 como salida
+  pinMode(FAN1, OUTPUT);     //Inicializar FAN1 como salida
+  pinMode(FAN2, OUTPUT);     //Inicializar FAN2 como salida
+  pinMode(FAN3, OUTPUT);     //Inicializar FAN3 como salida
+  pinMode(Bomba1, OUTPUT);   //Inicializar Bomba1 como salida
   
 //--------SERIAL-----------
-  Serial.begin(115200);
+  Serial.begin(115200);      //Inicializar conexión Serie para utilizar el Monitor
 
 //--------WIFI START--------
-  setup_wifi();
-  client.setServer(mqtt_server, 1883);
-  client.setCallback(callback);
-  
-//--------DHT SENSOR--------
-  //pinMode(DHT_PIN, INPUT);            // Inicializar el DHT como entrada
-  //dht.begin();                        // Iniciar el sensor DHT
+  setup_wifi();                          // Establecer la conexión WiFi
+  client.setServer(mqtt_server, 1883);   // Establecer los datos para la conexión MQTT
+  client.setCallback(callback);          // Establecer la función del callback para la llegada de mensajes en tópicos suscriptos
 
 //---------LED------------
- pixels.begin();
+ pixels.begin();             //Inicializar funciones luces
 }
 
 void loop() {
@@ -352,47 +306,8 @@ void loop() {
   if (now - lastMsg > 2000) {
     lastMsg = now;
     Serial.print("-");
-//   //------LECTURAS DE SENSORES--------
-//    
-//  //temperature = dht.readTemperature();  
-//  //humidity = dht.readHumidity();        
-//    temperature= 30;
-//    humidity= 50;
-//    humedad_terrestre = analogRead(hterrestre);
-//    humedad_terrestre = (1024 - humedad_terrestre)/5;
-//    valorTanque = analogRead(pinTanque);
-//    if(valorTanque>valorReserva){
-//      estadoTanque = false;
-//    }else{
-//      estadoTanque = true;
-//    }
-//
-//    //------REPORTE DE ATRIBUTOS--------
-//     DynamicJsonDocument resp(256);
-//      resp["Tanque1"] = estadoTanque;
-//      char buffer[256];
-//      serializeJson(resp, buffer);
-//      client.publish("v1/devices/me/attributes", buffer);
-//      Serial.print("Publish message [attribute]: ");
-//      Serial.println(buffer);
-//      
-   //------PUBLICACION TELEMETRIA-------
-   //if (!isnan(temperature) && !isnan(humidity) && !isnan(humedad_terrestre)) {
-  //    DynamicJsonDocument resp(256);
-  //    resp["TETE"] = 3;
-  //    //resp["humedad"] = humidity;
-  //    //resp["humedad terrestre"] = humedad_terrestre;
-  //    char buffer[256];
-  //    serializeJson(resp, buffer);
-  //    client.publish("v1/devices/me/telemetry", buffer);
 
-  //    Serial.print("Publish message [telemetry]: ");
-  //    Serial.println(buffer);
-  //  //
-  //  //------------------------------------
-
+    
   }//cierre if(now - lastMsg > 2000)
-
-
 
 }//Fin del loop
