@@ -1,0 +1,1103 @@
+{
+  "title": "Perfiles",
+  "image": null,
+  "mobileHide": false,
+  "mobileOrder": null,
+  "configuration": {
+    "description": "",
+    "widgets": {
+      "f90ff3b5-4bca-9712-17ed-af48f6e91bfc": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_multiple_attributes",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "c0ee54eb-3141-2756-ed8f-5228c77870fe",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "TemperaturaMax",
+                  "type": "attribute",
+                  "label": "TemperaturaMax",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.5981094896148105
+                },
+                {
+                  "name": "TemperaturaMin",
+                  "type": "attribute",
+                  "label": "TemperaturaMin",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "_hash": 0.4088913710630204
+                },
+                {
+                  "name": "HumedadMax",
+                  "type": "attribute",
+                  "label": "HumedadMax",
+                  "color": "#f44336",
+                  "settings": {},
+                  "_hash": 0.2722073440085595
+                },
+                {
+                  "name": "HumedadMin",
+                  "type": "attribute",
+                  "label": "HumedadMin",
+                  "color": "#ffc107",
+                  "settings": {},
+                  "_hash": 0.6262584390644024
+                },
+                {
+                  "name": "HumedadTerrestreMax",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMax",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "_hash": 0.036845198169924265
+                },
+                {
+                  "name": "HumedadTerrestreMin",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMin",
+                  "color": "#9c27b0",
+                  "settings": {},
+                  "_hash": 0.16411692055239757
+                },
+                {
+                  "name": "HoraEncendido",
+                  "type": "attribute",
+                  "label": "HoraEncendido",
+                  "color": "#8bc34a",
+                  "settings": {},
+                  "_hash": 0.5658142573146168
+                },
+                {
+                  "name": "HoraApagado",
+                  "type": "attribute",
+                  "label": "HoraApagado",
+                  "color": "#3f51b5",
+                  "settings": {},
+                  "_hash": 0.25493400063719696
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668644624842,
+                "endTimeMs": 1668731024842
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "groupTitle": "${entityName}",
+            "showActionButtons": true,
+            "fieldsAlignment": "row",
+            "fieldsInRow": 2
+          },
+          "title": "Perfil 1",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "f90ff3b5-4bca-9712-17ed-af48f6e91bfc"
+      },
+      "b1c7a65c-4d51-9c99-6993-d00eadf2625d": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_multiple_attributes",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "c0ee54eb-3141-2756-ed8f-5228c77870fe",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "TemperaturaMax2",
+                  "type": "attribute",
+                  "label": "TemperaturaMax",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.5981094896148105,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "TemperaturaMin2",
+                  "type": "attribute",
+                  "label": "TemperaturaMin",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "_hash": 0.4088913710630204,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMax2",
+                  "type": "attribute",
+                  "label": "HumedadMax",
+                  "color": "#f44336",
+                  "settings": {},
+                  "_hash": 0.2722073440085595,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMin2",
+                  "type": "attribute",
+                  "label": "HumedadMin",
+                  "color": "#ffc107",
+                  "settings": {},
+                  "_hash": 0.6262584390644024,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMax2",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMax",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "_hash": 0.036845198169924265,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMin2",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMin",
+                  "color": "#9c27b0",
+                  "settings": {},
+                  "_hash": 0.16411692055239757,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraEncendido2",
+                  "type": "attribute",
+                  "label": "HoraEncendido",
+                  "color": "#8bc34a",
+                  "settings": {},
+                  "_hash": 0.5658142573146168,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraApagado2",
+                  "type": "attribute",
+                  "label": "HoraApagado",
+                  "color": "#3f51b5",
+                  "settings": {},
+                  "_hash": 0.25493400063719696,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668644624843,
+                "endTimeMs": 1668731024843
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "groupTitle": "${entityName}",
+            "showActionButtons": true,
+            "fieldsAlignment": "row",
+            "fieldsInRow": 2
+          },
+          "title": "Perfil 2",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "b1c7a65c-4d51-9c99-6993-d00eadf2625d"
+      },
+      "225e7d11-8d8b-5c3c-7134-7a4c40f911af": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_multiple_attributes",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "c0ee54eb-3141-2756-ed8f-5228c77870fe",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "TemperaturaMax3",
+                  "type": "attribute",
+                  "label": "TemperaturaMax",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.5981094896148105,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "TemperaturaMin3",
+                  "type": "attribute",
+                  "label": "TemperaturaMin",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "_hash": 0.4088913710630204,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMax3",
+                  "type": "attribute",
+                  "label": "HumedadMax",
+                  "color": "#f44336",
+                  "settings": {},
+                  "_hash": 0.2722073440085595,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMin3",
+                  "type": "attribute",
+                  "label": "HumedadMin",
+                  "color": "#ffc107",
+                  "settings": {},
+                  "_hash": 0.6262584390644024,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMax3",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMax",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "_hash": 0.036845198169924265,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMin3",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMin",
+                  "color": "#9c27b0",
+                  "settings": {},
+                  "_hash": 0.16411692055239757,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraEncendido3",
+                  "type": "attribute",
+                  "label": "HoraEncendido",
+                  "color": "#8bc34a",
+                  "settings": {},
+                  "_hash": 0.5658142573146168,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraApagado3",
+                  "type": "attribute",
+                  "label": "HoraApagado",
+                  "color": "#3f51b5",
+                  "settings": {},
+                  "_hash": 0.25493400063719696,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668644624843,
+                "endTimeMs": 1668731024843
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "groupTitle": "${entityName}",
+            "showActionButtons": true,
+            "fieldsAlignment": "row",
+            "fieldsInRow": 2
+          },
+          "title": "Perfil 3",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "225e7d11-8d8b-5c3c-7134-7a4c40f911af"
+      },
+      "77079287-50c4-04d5-72f7-6d6c57063c9a": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_multiple_attributes",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "c0ee54eb-3141-2756-ed8f-5228c77870fe",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "TemperaturaMax4",
+                  "type": "attribute",
+                  "label": "TemperaturaMax",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.5981094896148105,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "TemperaturaMin4",
+                  "type": "attribute",
+                  "label": "TemperaturaMin",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "_hash": 0.4088913710630204,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMax4",
+                  "type": "attribute",
+                  "label": "HumedadMax",
+                  "color": "#f44336",
+                  "settings": {},
+                  "_hash": 0.2722073440085595,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMin4",
+                  "type": "attribute",
+                  "label": "HumedadMin",
+                  "color": "#ffc107",
+                  "settings": {},
+                  "_hash": 0.6262584390644024,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMax4",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMax",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "_hash": 0.036845198169924265,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMin4",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMin",
+                  "color": "#9c27b0",
+                  "settings": {},
+                  "_hash": 0.16411692055239757,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraEncendido4",
+                  "type": "attribute",
+                  "label": "HoraEncendido",
+                  "color": "#8bc34a",
+                  "settings": {},
+                  "_hash": 0.5658142573146168,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraApagado4",
+                  "type": "attribute",
+                  "label": "HoraApagado",
+                  "color": "#3f51b5",
+                  "settings": {},
+                  "_hash": 0.25493400063719696,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668644624843,
+                "endTimeMs": 1668731024843
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "groupTitle": "${entityName}",
+            "showActionButtons": true,
+            "fieldsAlignment": "row",
+            "fieldsInRow": 2
+          },
+          "title": "Perfil 4",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "77079287-50c4-04d5-72f7-6d6c57063c9a"
+      },
+      "3a514ca1-b845-8b93-a272-825248c4dde2": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_multiple_attributes",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "c0ee54eb-3141-2756-ed8f-5228c77870fe",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "TemperaturaMax5",
+                  "type": "attribute",
+                  "label": "TemperaturaMax",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.5981094896148105,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "TemperaturaMin5",
+                  "type": "attribute",
+                  "label": "TemperaturaMin",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "_hash": 0.4088913710630204,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMax5",
+                  "type": "attribute",
+                  "label": "HumedadMax",
+                  "color": "#f44336",
+                  "settings": {},
+                  "_hash": 0.2722073440085595,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadMin5",
+                  "type": "attribute",
+                  "label": "HumedadMin",
+                  "color": "#ffc107",
+                  "settings": {},
+                  "_hash": 0.6262584390644024,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMax5",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMax",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "_hash": 0.036845198169924265,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HumedadTerrestreMin5",
+                  "type": "attribute",
+                  "label": "HumedadTerrestreMin",
+                  "color": "#9c27b0",
+                  "settings": {},
+                  "_hash": 0.16411692055239757,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraEncendido5",
+                  "type": "attribute",
+                  "label": "HoraEncendido",
+                  "color": "#8bc34a",
+                  "settings": {},
+                  "_hash": 0.5658142573146168,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                },
+                {
+                  "name": "HoraApagado5",
+                  "type": "attribute",
+                  "label": "HoraApagado",
+                  "color": "#3f51b5",
+                  "settings": {},
+                  "_hash": 0.25493400063719696,
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": null,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668644624843,
+                "endTimeMs": 1668731024843
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "groupTitle": "${entityName}",
+            "showActionButtons": true,
+            "fieldsAlignment": "row",
+            "fieldsInRow": 2
+          },
+          "title": "Perfil 5",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "3a514ca1-b845-8b93-a272-825248c4dde2"
+      },
+      "86299ea3-bb36-e394-9d50-c60c2feb95dc": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_server_integer_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "c0ee54eb-3141-2756-ed8f-5228c77870fe",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "NumPerfilActual",
+                  "type": "attribute",
+                  "label": "NumPerfilActual",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.37689588250981965
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668644653558,
+                "endTimeMs": 1668731053558
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showLabel": true,
+            "isRequired": true,
+            "showResultMessage": true,
+            "minValue": 1,
+            "maxValue": 5
+          },
+          "title": "Perfil Actual",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "86299ea3-bb36-e394-9d50-c60c2feb95dc"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "Perfiles",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "f90ff3b5-4bca-9712-17ed-af48f6e91bfc": {
+                "sizeX": 4,
+                "sizeY": 10,
+                "row": 0,
+                "col": 0
+              },
+              "b1c7a65c-4d51-9c99-6993-d00eadf2625d": {
+                "sizeX": 4,
+                "sizeY": 10,
+                "row": 0,
+                "col": 4
+              },
+              "225e7d11-8d8b-5c3c-7134-7a4c40f911af": {
+                "sizeX": 4,
+                "sizeY": 10,
+                "row": 0,
+                "col": 8
+              },
+              "77079287-50c4-04d5-72f7-6d6c57063c9a": {
+                "sizeX": 4,
+                "sizeY": 10,
+                "row": 0,
+                "col": 12
+              },
+              "3a514ca1-b845-8b93-a272-825248c4dde2": {
+                "sizeX": 4,
+                "sizeY": 10,
+                "row": 0,
+                "col": 16
+              },
+              "86299ea3-bb36-e394-9d50-c60c2feb95dc": {
+                "sizeX": 3,
+                "sizeY": 3,
+                "row": 0,
+                "col": 20
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "columns": 24,
+              "margin": 10,
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "c0ee54eb-3141-2756-ed8f-5228c77870fe": {
+        "id": "c0ee54eb-3141-2756-ed8f-5228c77870fe",
+        "alias": "ESP32",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "35075c20-3938-11ed-b827-c9be76c6f5d7"
+          }
+        }
+      }
+    },
+    "filters": {},
+    "timewindow": {
+      "displayValue": "",
+      "hideInterval": false,
+      "hideLastInterval": false,
+      "hideQuickInterval": false,
+      "hideAggregation": false,
+      "hideAggInterval": false,
+      "hideTimezone": false,
+      "selectedTab": 0,
+      "realtime": {
+        "realtimeType": 0,
+        "interval": 1000,
+        "timewindowMs": 60000,
+        "quickInterval": "CURRENT_DAY"
+      },
+      "history": {
+        "historyType": 0,
+        "interval": 1000,
+        "timewindowMs": 60000,
+        "fixedTimewindow": {
+          "startTimeMs": 1668641872953,
+          "endTimeMs": 1668728272953
+        },
+        "quickInterval": "CURRENT_DAY"
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 2500
+      }
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  },
+  "externalId": null,
+  "name": "Perfiles"
+}

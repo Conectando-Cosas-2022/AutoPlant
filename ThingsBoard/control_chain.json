@@ -1,0 +1,1100 @@
+{
+  "ruleChain": {
+    "additionalInfo": {
+      "description": ""
+    },
+    "name": "Control Chain",
+    "type": "CORE",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null,
+    "externalId": null
+  },
+  "metadata": {
+    "firstNodeIndex": 27,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 593,
+          "layoutY": 622
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "TemperaturaAlta",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "return msg.temperaturaAlta;"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 871,
+          "layoutY": 596
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "CreateAlarmTempA",
+        "debugMode": false,
+        "configuration": {
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "useMessageAlarmData": false,
+          "overwriteAlarmDetails": false,
+          "alarmType": "TemperaturaAlta",
+          "severity": "MAJOR",
+          "propagate": false,
+          "relationTypes": [],
+          "propagateToOwner": false,
+          "propagateToTenant": false,
+          "dynamicSeverity": false
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 871,
+          "layoutY": 644
+        },
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "ClearAlarmTempA",
+        "debugMode": false,
+        "configuration": {
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "alarmType": "TemperaturaAlta"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 596,
+          "layoutY": 521
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "HumedadAlta",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "return msg.humedadAlta;",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 352,
+          "layoutY": 25
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "ControlRiego",
+        "debugMode": true,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "var humedad_terrestreBaja = null;\nvar humedad_terrestreAlta = null;\nif (JSON.parse(metadata.ss_RiegoAutomatizadoKey)) {\n    humedad_terrestreBaja = JSON.parse(msg.humedad_terrestre) < JSON.parse(metadata.ss_HumedadTerrestreMin);\n    humedad_terrestreAlta = JSON.parse(msg.humedad_terrestre) > JSON.parse(metadata.ss_HumedadTerrestreMax);\n}\nvar myJson = {\n        'humedad_terrestreBaja':humedad_terrestreBaja,\n        'humedad_terrestreAlta':humedad_terrestreAlta,\n};\n\nreturn {msg: myJson, metadata: metadata, msgType: msgType};",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 603,
+          "layoutY": 78
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "HumedadTerrestreBaja",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "return msg.humedad_terrestreBaja;"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 871,
+          "layoutY": 497
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "CreateAlarmHumA",
+        "debugMode": false,
+        "configuration": {
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "useMessageAlarmData": false,
+          "overwriteAlarmDetails": false,
+          "alarmType": "HumedadAlta",
+          "severity": "MAJOR",
+          "propagate": false,
+          "relationTypes": [],
+          "propagateToOwner": false,
+          "propagateToTenant": false,
+          "dynamicSeverity": false
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 869,
+          "layoutY": 543
+        },
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "ClearAlarmHumA",
+        "debugMode": false,
+        "configuration": {
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "alarmType": "HumedadAlta"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 871,
+          "layoutY": 226
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "ExOk",
+        "debugMode": false,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "Uses",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1128,
+          "layoutY": 227
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "PrenderApagar",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "var newMsg = {\n    \"method\":\"setExOkStatus\", \n    \"params\":msg.extractorOk,\n}\n\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1378,
+          "layoutY": 226
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "RPCExOkOnOff",
+        "debugMode": false,
+        "configuration": {
+          "timeoutInSeconds": 60
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 597,
+          "layoutY": 423
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "HumedadBaja",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "return msg.humedadBaja;",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 873,
+          "layoutY": 396
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "CreateAlarmHumB",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "alarmDetailsBuildTbel": null,
+          "useMessageAlarmData": false,
+          "overwriteAlarmDetails": false,
+          "alarmType": "HumedadBaja",
+          "severity": "MAJOR",
+          "propagate": false,
+          "relationTypes": [],
+          "propagateToOwner": false,
+          "propagateToTenant": false,
+          "dynamicSeverity": false
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 872,
+          "layoutY": 445
+        },
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "ClearAlarmHumB",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "alarmDetailsBuildTbel": null,
+          "alarmType": "HumedadBaja"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 873,
+          "layoutY": 275
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "Ex2",
+        "debugMode": false,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "Uses",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1128,
+          "layoutY": 277
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "PrenderApagar",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "var newMsg = {\n    \"method\":\"setEx2Status\", \n    \"params\":msg.extractor2,\n}\n\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1378,
+          "layoutY": 274
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "RPCEx2OnOff",
+        "debugMode": false,
+        "configuration": {
+          "timeoutInSeconds": 60
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 873,
+          "layoutY": 325
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "Fan1",
+        "debugMode": false,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "Uses",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1128,
+          "layoutY": 325
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "PrenderApagar",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "var newMsg = {\n    \"method\":\"setFan1Status\", \n    \"params\":msg.fan1,\n}\n\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1379,
+          "layoutY": 325
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "RPCFan1OnOff",
+        "debugMode": false,
+        "configuration": {
+          "timeoutInSeconds": 60
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 876,
+          "layoutY": 78
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "BombaOn",
+        "debugMode": false,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "Uses",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1133,
+          "layoutY": 29
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Apagar",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "var newMsg = {\n    \"method\":\"setBomba1Status\", \n    \"params\":!msg.humedad_terrestreAlta\n}\n\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1380,
+          "layoutY": 78
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "RPCBombaOn",
+        "debugMode": false,
+        "configuration": {
+          "timeoutInSeconds": 60
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 604,
+          "layoutY": 29
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "HumedadTerrestreAlta",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "return msg.humedad_terrestreAlta;"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 875,
+          "layoutY": 28
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "BombaOff",
+        "debugMode": false,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "Uses",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1132,
+          "layoutY": 77
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Prender",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "var newMsg = {\n    \"method\":\"setBomba1Status\", \n    \"params\":msg.humedad_terrestreBaja\n}\n\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1379,
+          "layoutY": 26
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "RPCBombaOff",
+        "debugMode": false,
+        "configuration": {
+          "timeoutInSeconds": 60
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 86,
+          "layoutY": 204
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "ConcatenarPerfil",
+        "debugMode": true,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "fetchToData": false,
+          "clientAttributeNames": [
+            "LIGHTS"
+          ],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [
+            "HumedadMin",
+            "HumedadMax",
+            "HumedadTerrestreMin",
+            "HumedadTerrestreMax",
+            "TemperaturaMax",
+            "TemperaturaMin",
+            "ControlAutomatizadoKey",
+            "RiegoAutomatizadoKey",
+            "HumedadMin2",
+            "HumedadTerrestreMin2",
+            "TemperaturaMin2",
+            "TemperaturaMax2",
+            "HumedadMin3",
+            "HumedadMax3",
+            "HumedadTerrestreMin3",
+            "HumedadTerrestreMax3",
+            "TemperaturaMin3",
+            "TemperaturaMax3",
+            "HumedadMin4",
+            "HumedadMax4",
+            "HumedadTerrestreMin4",
+            "HumedadTerrestreMax4",
+            "TemperaturaMin4",
+            "TemperaturaMax4",
+            "HumedadMin5",
+            "HumedadMax5",
+            "HumedadTerrestreMin5",
+            "HumedadTerrestreMax5",
+            "TemperaturaMin5",
+            "TemperaturaMax5",
+            "HoraApagado",
+            "HoraApagado2",
+            "HoraApagado3",
+            "HoraApagado4",
+            "HoraApagado5",
+            "HoraEncendido",
+            "HoraEncendido2",
+            "HoraEncendido3",
+            "HoraEncendido4",
+            "HoraEncendido5",
+            "HumedadMax2",
+            "HumedadTerrestre2",
+            "NumPerfilActual"
+          ],
+          "latestTsKeyNames": [],
+          "getLatestValueWithTs": false
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 351,
+          "layoutY": 327
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "ControlTempHum",
+        "debugMode": true,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "//Reporte de alarmas\nvar tcm = JSON.parse(msg.temperatura) < JSON.parse(metadata.ss_TemperaturaMin);\nvar tcM = JSON.parse(msg.temperatura) > JSON.parse(metadata.ss_TemperaturaMax);\nvar hcm = JSON.parse(msg.humedad) < JSON.parse(metadata.ss_HumedadMin);\nvar hcM = JSON.parse(msg.humedad) > JSON.parse(metadata.ss_HumedadMax);\n\nvar Tmas = (3*JSON.parse(metadata.ss_TemperaturaMax) + JSON.parse(metadata.ss_TemperaturaMin))/4;\nvar Tmenos = (3*JSON.parse(metadata.ss_TemperaturaMin) + JSON.parse(metadata.ss_TemperaturaMax))/4;\nvar Hmas = (3*JSON.parse(metadata.ss_HumedadMax) + JSON.parse(metadata.ss_HumedadMin))/4;\nvar Hmenos = (3*JSON.parse(metadata.ss_HumedadMin) + JSON.parse(metadata.ss_HumedadMax))/4;\n\nvar tm = JSON.parse(metadata.ss_TemperaturaMin) < JSON.parse(msg.temperatura) && JSON.parse(msg.temperatura) < Tmenos;\nvar tok = Tmenos < JSON.parse(msg.temperatura) && JSON.parse(msg.temperatura) < Tmas;\nvar tM = Tmas < JSON.parse(msg.temperatura) && JSON.parse(msg.temperatura) < JSON.parse(metadata.ss_TemperaturaMax);\n\nvar hm = JSON.parse(metadata.ss_HumedadMin) < JSON.parse(msg.humedad) && JSON.parse(msg.humedad) < Hmenos;\nvar hok = Hmenos < JSON.parse(msg.humedad) && JSON.parse(msg.humedad) < Hmas;\nvar hM = Hmas < JSON.parse(msg.humedad) && JSON.parse(msg.humedad) < JSON.parse(metadata.ss_HumedadMax);\n\n//Control de temperatura y humeda automatizado\nif (JSON.parse(metadata.ss_ControlAutomatizadoKey)) {\n    \n    var ret; // = [Exok,Ex2,Fan]\n    \n    if (tcm) {\n        //nada\n        ret = [false,false,false];\n    } else if (tcM) {\n        //todo\n        ret = [true,true,true];\n    } else if (hcm) {\n        //nada\n        ret = [false,false,false];\n    } else if (hcM) {\n        //todo\n        ret = [true,true,true];\n    } else if (tM) {\n        if (hm) {\n            //ok\n            ret = [true,false,false];\n        } else if (hok) {\n            //T+\n            ret = [true,true,false];\n        } else if (hM) {\n            //todo\n            ret = [true,true,true];\n        }\n    } else if (hm) {\n        //nada\n        ret = [false,false,false];\n    } else if (tm) {\n        if (hok) {\n            //nada\n            ret = [false,false,false];\n        } else if (hM) {\n            //ok\n            ret = [true,false,false];\n        }\n    } else if (tok) {\n        if (hok) {\n            //ok\n            ret = [true,false,false];\n        } else if (hM) {\n            //H+\n            ret = [true,false,true];\n        }\n    }\n} else {\n    var ret = [null,null,null];\n}\n\nconst myJson = {\n    'extractorOk':ret[0],\n    'extractor2':ret[1],\n    'fan1':ret[2],\n    'temperaturaAlta':tcM,\n    'temperaturaBaja':tcm,\n    'humedadAlta':hcM,\n    'humedadBaja':hcm,\n    'tM':tM,\n    'tok':tok,\n    'tm':tm,\n    'hM':hM,\n    'hok':hok,\n    'hm':hm,\n};\n\nreturn {msg: myJson, metadata: metadata, msgType: msgType};",
+          "tbelScript": "return {msg: msg, metadata: metadata, msgType: msgType};"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 594,
+          "layoutY": 721
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "TemperaturaBaja",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "return msg.temperaturaBaja;",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 872,
+          "layoutY": 695
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "CreateAlarmTempB",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "alarmDetailsBuildTbel": null,
+          "useMessageAlarmData": false,
+          "overwriteAlarmDetails": false,
+          "alarmType": "TemperaturaBaja",
+          "severity": "MAJOR",
+          "propagate": false,
+          "relationTypes": [],
+          "propagateToOwner": false,
+          "propagateToTenant": false,
+          "dynamicSeverity": false
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 873,
+          "layoutY": 744
+        },
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "ClearAlarmTempB",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "alarmDetailsBuildTbel": null,
+          "alarmType": "TemperaturaBaja"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 597,
+          "layoutY": 226
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "ExtractorOk",
+        "debugMode": true,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "return msg.extractorOk;",
+          "tbelScript": "return msg.ExtractorOk;"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 597,
+          "layoutY": 274
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Extractor2",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "return msg.extractor2;",
+          "tbelScript": "return msg.Extractor2;"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 597,
+          "layoutY": 323
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Fan1",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "return msg.fan1;",
+          "tbelScript": "return msg.Fan1;"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 872,
+          "layoutY": 153
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "Lights",
+        "debugMode": false,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "Uses",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1129,
+          "layoutY": 154
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "PrenderApagar",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "var newMsg = {\n    \"method\":\"setLedStatus\", \n    \"params\":msg.lights,\n}\n\nreturn {msg: newMsg, metadata: metadata, msgType: msgType};",
+          "tbelScript": null
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1379,
+          "layoutY": 153
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "RPCLightsOnOff",
+        "debugMode": false,
+        "configuration": {
+          "timeoutInSeconds": 60
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 601,
+          "layoutY": 153
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Luces",
+        "debugMode": true,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "return msg.luces;",
+          "tbelScript": "const FechaActual = new Date (metadata.ts)\nconst HoraActual = FechaActual.getHours()\nconst MinActual = FechaActual.getMinutes()\n\nif (metadata.cs_Lights) {\n    const HoraApagar = metadata.HoraApagado.split(\":\")[0]\n    const MinApagar = metadata.HoraApagado.split(\":\")[1]\n    var ret = ((HoraActual == HoraApagar) & ((MinApagar - 2) < MinActual < (MinApagar + 2)))\n} else {\n    const HoraEncender = metadata.HoraEncendido.split(\":\")[0]\n    const MinEncender = metadata.HoraEncendido.split(\":\")[1]\n    var ret = ((HoraActual == HoraEncender) & ((MinEncender - 2) < MinActual < (MinEncender + 2)))\n}\n\nreturn ret"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 103,
+          "layoutY": 252
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "SeleccionarPerfil",
+        "debugMode": true,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "var metadata;\r\n\r\nif (JSON.parse(metadata.ss_NumPerfilActual) == 1) {\r\n    var myMetadata = {\r\n    'ss_TemperaturaMax':metadata.ss_TemperaturaMax,\r\n    'ss_TemperaturaMin':metadata.ss_TemperaturaMin,\r\n    'ss_HumedadMax':metadata.ss_HumedadMax,\r\n    'ss_HumedadMin':metadata.ss_HumedadMin,\r\n    'ss_HumedadTerrestreMax':metadata.ss_HumedadTerrestreMax,\r\n    'ss_HumedadTerrestreMin':metadata.ss_HumedadTerrestreMin,\r\n    'ss_HoraApagado':metadata.ss_HoraApagado,\r\n    'ss_HoraEncendido':metadata.ss_HoraEncendido,\r\n    \r\n    'ss_ControlAutomatizadoKey':metadata.ss_ControlAutomatizadoKey,\r\n    'ss_RiegoAutomatizadoKey': metadata.ss_RiegoAutomatizadoKey,\r\n    'cs_LIGHTS':metadata.cs_LIGHTS,\r\n    \"deviceName\":metadata.deviceName,\r\n    \"deviceType\":metadata.deviceType,\r\n    \"ts\":metadata.ts\r\n        };\r\n} else if (JSON.parse(metadata.ss_NumPerfilActual) == 2) {\r\n    var myMetadata = {\r\n    'ss_TemperaturaMax':metadata.ss_TemperaturaMax2,\r\n    'ss_TemperaturaMin':metadata.ss_TemperaturaMin2,\r\n    'ss_HumedadMax':metadata.ss_HumedadMax2,\r\n    'ss_HumedadMin':metadata.ss_HumedadMin2,\r\n    'ss_HumedadTerrestreMax':metadata.ss_HumedadTerrestreMax2,\r\n    'ss_HumedadTerrestreMin':metadata.ss_HumedadTerrestreMin2,\r\n    'ss_HoraApagado':metadata.ss_HoraApagado2,\r\n    'ss_HoraEncendido':metadata.ss_HoraEncendido2,\r\n    \r\n    'ss_ControlAutomatizadoKey':metadata.ss_ControlAutomatizadoKey,\r\n    'ss_RiegoAutomatizadoKey': metadata.ss_RiegoAutomatizadoKey,\r\n    'cs_LIGHTS':metadata.cs_LIGHTS,\r\n    \"deviceName\":metadata.deviceName,\r\n    \"deviceType\":metadata.deviceType,\r\n    \"ts\":metadata.ts\r\n    };\r\n} else if (JSON.parse(metadata.ss_NumPerfilActual) == 3) {\r\n    var myMetadata = {\r\n    'ss_TemperaturaMax':metadata.ss_TemperaturaMax3,\r\n    'ss_TemperaturaMin':metadata.ss_TemperaturaMin3,\r\n    'ss_HumedadMax':metadata.ss_HumedadMax3,\r\n    'ss_HumedadMin':metadata.ss_HumedadMin3,\r\n    'ss_HumedadTerrestreMax':metadata.ss_HumedadTerrestreMax3,\r\n    'ss_HumedadTerrestreMin':metadata.ss_HumedadTerrestreMin3,\r\n    'ss_HoraApagado':metadata.ss_HoraApagado3,\r\n    'ss_HoraEncendido':metadata.ss_HoraEncendido3,\r\n    \r\n    'ss_ControlAutomatizadoKey':metadata.ss_ControlAutomatizadoKey,\r\n    'ss_RiegoAutomatizadoKey': metadata.ss_RiegoAutomatizadoKey,\r\n    'cs_LIGHTS':metadata.cs_LIGHTS,\r\n    \"deviceName\":metadata.deviceName,\r\n    \"deviceType\":metadata.deviceType,\r\n    \"ts\":metadata.ts\r\n    };\r\n} else if (JSON.parse(metadata.ss_NumPerfilActual) == 4) {\r\n    var myMetadata = {\r\n    'ss_TemperaturaMax':metadata.ss_TemperaturaMax4,\r\n    'ss_TemperaturaMin':metadata.ss_TemperaturaMin4,\r\n    'ss_HumedadMax':metadata.ss_HumedadMax4,\r\n    'ss_HumedadMin':metadata.ss_HumedadMin4,\r\n    'ss_HumedadTerrestreMax':metadata.ss_HumedadTerrestreMax4,\r\n    'ss_HumedadTerrestreMin':metadata.ss_HumedadTerrestreMin4,\r\n    'ss_HoraApagado':metadata.ss_HoraApagado4,\r\n    'ss_HoraEncendido':metadata.ss_HoraEncendido4,\r\n    \r\n    'ss_ControlAutomatizadoKey':metadata.ss_ControlAutomatizadoKey,\r\n    'ss_RiegoAutomatizadoKey': metadata.ss_RiegoAutomatizadoKey,\r\n    'cs_LIGHTS':metadata.cs_LIGHTS,\r\n    \"deviceName\":metadata.deviceName,\r\n    \"deviceType\":metadata.deviceType,\r\n    \"ts\":metadata.ts\r\n    };\r\n} else if (JSON.parse(metadata.ss_NumPerfilActual) == 5) {\r\n    var myMetadata = {\r\n    'ss_TemperaturaMax':metadata.ss_TemperaturaMax5,\r\n    'ss_TemperaturaMin':metadata.ss_TemperaturaMin5,\r\n    'ss_HumedadMax':metadata.ss_HumedadMax5,\r\n    'ss_HumedadMin':metadata.ss_HumedadMin5,\r\n    'ss_HumedadTerrestreMax':metadata.ss_HumedadTerrestreMax5,\r\n    'ss_HumedadTerrestreMin':metadata.ss_HumedadTerrestreMin5,\r\n    'ss_HoraApagado':metadata.ss_HoraApagado5,\r\n    'ss_HoraEncendido':metadata.ss_HoraEncendido5,\r\n    \r\n    'ss_ControlAutomatizadoKey':metadata.ss_ControlAutomatizadoKey,\r\n    'ss_RiegoAutomatizadoKey': metadata.ss_RiegoAutomatizadoKey,\r\n    'cs_LIGHTS':metadata.cs_LIGHTS,\r\n    \"deviceName\":metadata.deviceName,\r\n    \"deviceType\":metadata.deviceType,\r\n    \"ts\":metadata.ts\r\n    };\r\n}\r\n\r\nreturn {msg: msg, metadata: myMetadata, msgType: msgType};",
+          "tbelScript": "if (JSON.parse(metadata.PerfilActual) == 1) {\n    const myJson = {\n    'TemperaturaMax':TemperaturaMax,\n    'extractor2':ret[1],\n    'fan1':ret[2],\n    'temperaturaAlta':tcM,\n    'temperaturaBaja':tcm,\n    'humedadAlta':hcM,\n    'humedadBaja':hcm,\n    'tM':tM,\n    'tok':tok,\n    'tm':tm,\n    'hM':hM,\n    'hok':hok,\n    'hm':hm,\n};\n} else if (JSON.parse(metadata.PerfilActual) == 2) {\n    const myJson = {\n    'extractorOk':ret[0],\n    'extractor2':ret[1],\n    'fan1':ret[2],\n    'temperaturaAlta':tcM,\n    'temperaturaBaja':tcm,\n    'humedadAlta':hcM,\n    'humedadBaja':hcm,\n    'tM':tM,\n    'tok':tok,\n    'tm':tm,\n    'hM':hM,\n    'hok':hok,\n    'hm':hm,\n};\n} else if (JSON.parse(metadata.PerfilActual) == 3) {\n    const myJson = {\n    'extractorOk':ret[0],\n    'extractor2':ret[1],\n    'fan1':ret[2],\n    'temperaturaAlta':tcM,\n    'temperaturaBaja':tcm,\n    'humedadAlta':hcM,\n    'humedadBaja':hcm,\n    'tM':tM,\n    'tok':tok,\n    'tm':tm,\n    'hM':hM,\n    'hok':hok,\n    'hm':hm,\n};\n} else if (JSON.parse(metadata.PerfilActual) == 4) {\n    const myJson = {\n    'extractorOk':ret[0],\n    'extractor2':ret[1],\n    'fan1':ret[2],\n    'temperaturaAlta':tcM,\n    'temperaturaBaja':tcm,\n    'humedadAlta':hcM,\n    'humedadBaja':hcm,\n    'tM':tM,\n    'tok':tok,\n    'tm':tm,\n    'hM':hM,\n    'hok':hok,\n    'hm':hm,\n};\n} else if (JSON.parse(metadata.PerfilActual) == 5) {\n    const myJson = {\n    'extractorOk':ret[0],\n    'extractor2':ret[1],\n    'fan1':ret[2],\n    'temperaturaAlta':tcM,\n    'temperaturaBaja':tcm,\n    'humedadAlta':hcM,\n    'humedadBaja':hcm,\n    'tM':tM,\n    'tok':tok,\n    'tm':tm,\n    'hM':hM,\n    'hok':hok,\n    'hm':hm,\n};\n}\nreturn {msg: msg, metadata: myMetadata, msgType: msgType};"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 351,
+          "layoutY": 155
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "ControlLuces",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "if (JSON.parse(metadata.ss_ControlAutomatizadoKey)) {\n    //var ret = null\n    var ts = JSON.parse(metadata.ts);\n    var FechaActual = new Date (ts);\n    var HoraActual = FechaActual.getHours() - 3;\n    var DiaActual = FechaActual.getDate();\n    if (HoraActual < 0) {\n        HoraActual = HoraActual + 24;\n        DiaActual = DiaActual - 1;\n    }\n    var MinActual = FechaActual.getMinutes();\n    var HoraApagar = parseInt(metadata.ss_HoraApagado.split(\":\")[0]);\n    var MinApagar = parseInt(metadata.ss_HoraApagado.split(\":\")[1]);\n    var HoraEncender = parseInt(metadata.ss_HoraEncendido.split(\":\")[0]);\n    var MinEncender = parseInt(metadata.ss_HoraEncendido.split(\":\")[1]);\n    var ret = 1\n    if ((HoraActual == HoraApagar) & ((MinApagar - 3) < MinActual) & (MinActual < (MinApagar + 3))) {\n        //dia\n        //const HoraApagar = metadata.ss_HoraApagado.split(\":\")[0];\n        //const MinApagar = metadata.ss_HoraApagado.split(\":\")[1];\n        //var ret = !((HoraActual == HoraApagar) & ((MinApagar - 2) < MinActual < (MinApagar + 2)));\n        ret = false;\n    } else if ((HoraActual == HoraEncender) & ((MinEncender - 3) < MinActual) & (MinActual < (MinEncender + 3))) {\n        //noche\n        //const HoraEncender = metadata.ss_HoraEncendido.split(\":\")[0];\n        //const MinEncender = metadata.ss_HoraEncendido.split(\":\")[1];\n        //var ret = ((HoraActual == HoraEncender) & ((MinEncender - 2) < MinActual < (MinEncender + 2)));\n        ret = true;\n    }\n} \nconst myJson = {\n    'ts':ts,\n    'diaActual':DiaActual,\n    'horaActual':HoraActual,\n    'minActual':MinActual,\n    'horaApagar':HoraApagar,\n    'minApagar':MinApagar,\n    'horaEncander':HoraEncender,\n    'minEncender':MinEncender,\n    'luces':ret\n};\nreturn {msg: myJson, metadata: metadata, msgType: msgType};",
+          "tbelScript": "return {msg: msg, metadata: metadata, msgType: msgType};"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1624,
+          "layoutY": 153
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "NoResponde",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "TBEL",
+          "jsScript": "return msg.temperature > 20;",
+          "tbelScript": "return true;"
+        },
+        "externalId": null
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1851,
+          "layoutY": 154
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "CreateAlarmNoResp",
+        "debugMode": false,
+        "configuration": {
+          "scriptLang": "TBEL",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    delete metadata.prevAlarmDetails;\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "alarmDetailsBuildTbel": "var details = {};\nif (metadata.prevAlarmDetails != null) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n    //remove prevAlarmDetails from metadata\n    metadata.remove('prevAlarmDetails');\n    //now metadata is the same as it comes IN this rule node\n}\n\n\nreturn details;",
+          "useMessageAlarmData": false,
+          "overwriteAlarmDetails": false,
+          "alarmType": "ESP8266 no responde",
+          "severity": "CRITICAL",
+          "propagate": false,
+          "relationTypes": [],
+          "propagateToOwner": false,
+          "propagateToTenant": false,
+          "dynamicSeverity": false
+        },
+        "externalId": null
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 1,
+        "type": "True"
+      },
+      {
+        "fromIndex": 0,
+        "toIndex": 2,
+        "type": "False"
+      },
+      {
+        "fromIndex": 3,
+        "toIndex": 6,
+        "type": "True"
+      },
+      {
+        "fromIndex": 3,
+        "toIndex": 7,
+        "type": "False"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 5,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 23,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 20,
+        "type": "True"
+      },
+      {
+        "fromIndex": 8,
+        "toIndex": 9,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 10,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 10,
+        "toIndex": 41,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 11,
+        "toIndex": 12,
+        "type": "True"
+      },
+      {
+        "fromIndex": 11,
+        "toIndex": 13,
+        "type": "False"
+      },
+      {
+        "fromIndex": 14,
+        "toIndex": 15,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 15,
+        "toIndex": 16,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 16,
+        "toIndex": 41,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 17,
+        "toIndex": 18,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 18,
+        "toIndex": 19,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 19,
+        "toIndex": 41,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 20,
+        "toIndex": 25,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 21,
+        "toIndex": 26,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 22,
+        "toIndex": 41,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 23,
+        "toIndex": 24,
+        "type": "True"
+      },
+      {
+        "fromIndex": 24,
+        "toIndex": 21,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 25,
+        "toIndex": 22,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 26,
+        "toIndex": 41,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 27,
+        "toIndex": 39,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 28,
+        "toIndex": 0,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 28,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 28,
+        "toIndex": 11,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 28,
+        "toIndex": 29,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 28,
+        "toIndex": 32,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 28,
+        "toIndex": 33,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 28,
+        "toIndex": 34,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 29,
+        "toIndex": 30,
+        "type": "True"
+      },
+      {
+        "fromIndex": 29,
+        "toIndex": 31,
+        "type": "False"
+      },
+      {
+        "fromIndex": 32,
+        "toIndex": 8,
+        "type": "False"
+      },
+      {
+        "fromIndex": 32,
+        "toIndex": 8,
+        "type": "True"
+      },
+      {
+        "fromIndex": 33,
+        "toIndex": 14,
+        "type": "False"
+      },
+      {
+        "fromIndex": 33,
+        "toIndex": 14,
+        "type": "True"
+      },
+      {
+        "fromIndex": 34,
+        "toIndex": 17,
+        "type": "False"
+      },
+      {
+        "fromIndex": 34,
+        "toIndex": 17,
+        "type": "True"
+      },
+      {
+        "fromIndex": 35,
+        "toIndex": 36,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 36,
+        "toIndex": 37,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 37,
+        "toIndex": 41,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 38,
+        "toIndex": 35,
+        "type": "False"
+      },
+      {
+        "fromIndex": 38,
+        "toIndex": 35,
+        "type": "True"
+      },
+      {
+        "fromIndex": 39,
+        "toIndex": 4,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 39,
+        "toIndex": 28,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 39,
+        "toIndex": 40,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 40,
+        "toIndex": 38,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 41,
+        "toIndex": 42,
+        "type": "True"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}

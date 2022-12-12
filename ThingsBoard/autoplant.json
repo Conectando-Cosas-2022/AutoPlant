@@ -1,0 +1,1442 @@
+{
+  "title": "AutoPlant",
+  "image": null,
+  "mobileHide": false,
+  "mobileOrder": null,
+  "configuration": {
+    "description": "",
+    "widgets": {
+      "0c192401-cc38-e82e-9548-3a640a82cf1a": {
+        "isSystemType": true,
+        "bundleAlias": "digital_gauges",
+        "typeAlias": "digital_thermometer",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 3,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "e6aab2fd-4e8a-8071-2232-a62ddaa8c768",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "temperatura",
+                  "type": "timeseries",
+                  "label": "temperatura",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.846698996998714
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668651646349,
+                "endTimeMs": 1668738046349
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#000000",
+          "color": "rgba(255, 254, 254, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "minValue": 0,
+            "maxValue": 40,
+            "gaugeType": "arc",
+            "gaugeWidthScale": 1,
+            "neonGlowBrightness": 35,
+            "dashThickness": 1.5,
+            "roundedLineCap": false,
+            "gaugeColor": "#333333",
+            "useFixedLevelColor": false,
+            "levelColors": [
+              "#4671ff",
+              "#42ff6d",
+              "#ff0000"
+            ],
+            "showTitle": true,
+            "title": "TEMPERATURA",
+            "titleFont": {
+              "family": "Roboto",
+              "size": 12,
+              "style": "normal",
+              "weight": "500",
+              "color": "#ffffff"
+            },
+            "showUnitTitle": true,
+            "unitTitle": "°C",
+            "showTimestamp": false,
+            "labelFont": {
+              "family": "Roboto",
+              "size": 8,
+              "style": "normal",
+              "weight": "500",
+              "color": null
+            },
+            "showValue": true,
+            "valueFont": {
+              "family": "Segment7Standard",
+              "size": 18,
+              "style": "normal",
+              "weight": "500",
+              "color": "#ffffff"
+            },
+            "showMinMax": true,
+            "minMaxFont": {
+              "family": "Segment7Standard",
+              "size": 12,
+              "style": "normal",
+              "weight": "500"
+            },
+            "showTicks": false,
+            "animation": true,
+            "animationDuration": 500,
+            "animationRule": "linear"
+          },
+          "title": "New Digital thermometer",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "widgetStyle": {},
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {}
+        },
+        "row": 0,
+        "col": 0,
+        "id": "0c192401-cc38-e82e-9548-3a640a82cf1a"
+      },
+      "49055dbb-58d5-4f93-00f7-3052da61db2d": {
+        "isSystemType": true,
+        "bundleAlias": "digital_gauges",
+        "typeAlias": "digital_thermometer",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 3,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "e6aab2fd-4e8a-8071-2232-a62ddaa8c768",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "humedad",
+                  "type": "timeseries",
+                  "label": "humedad",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.8731186298332021
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668651646349,
+                "endTimeMs": 1668738046349
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#000000",
+          "color": "rgba(255, 254, 254, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "minValue": 0,
+            "maxValue": 100,
+            "gaugeType": "arc",
+            "gaugeWidthScale": 1,
+            "neonGlowBrightness": 35,
+            "dashThickness": 1.5,
+            "roundedLineCap": false,
+            "gaugeColor": "#333333",
+            "useFixedLevelColor": false,
+            "levelColors": [
+              "#b57c00",
+              "#304ffe"
+            ],
+            "showTitle": true,
+            "title": "HUMEDAD",
+            "titleFont": {
+              "family": "Roboto",
+              "size": 12,
+              "style": "normal",
+              "weight": "500",
+              "color": "#ffffff"
+            },
+            "showUnitTitle": true,
+            "unitTitle": "%",
+            "showTimestamp": false,
+            "labelFont": {
+              "family": "Roboto",
+              "size": 8,
+              "style": "normal",
+              "weight": "500",
+              "color": null
+            },
+            "showValue": true,
+            "valueFont": {
+              "family": "Segment7Standard",
+              "size": 18,
+              "style": "normal",
+              "weight": "500",
+              "color": "#ffffff"
+            },
+            "showMinMax": true,
+            "minMaxFont": {
+              "family": "Segment7Standard",
+              "size": 12,
+              "style": "normal",
+              "weight": "500"
+            },
+            "showTicks": false,
+            "animation": true,
+            "animationDuration": 500,
+            "animationRule": "linear"
+          },
+          "title": "Hidrometro",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "widgetStyle": {},
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": "",
+          "legendConfig": {
+            "direction": "column",
+            "position": "bottom",
+            "sortDataKeys": false,
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false,
+            "showLatest": false
+          }
+        },
+        "row": 0,
+        "col": 0,
+        "id": "49055dbb-58d5-4f93-00f7-3052da61db2d"
+      },
+      "0b16c69b-4f37-0fd0-eb5e-83a183a424c0": {
+        "isSystemType": true,
+        "bundleAlias": "digital_gauges",
+        "typeAlias": "simple_neon_gauge_justgage",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 3,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "e6aab2fd-4e8a-8071-2232-a62ddaa8c768",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "humedad_terrestre",
+                  "type": "timeseries",
+                  "label": "humedad_terrestre",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.557156038262997
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668651646349,
+                "endTimeMs": 1668738046349
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#000000",
+          "color": "rgba(255, 254, 254, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "minValue": 0,
+            "maxValue": 100,
+            "gaugeType": "arc",
+            "gaugeWidthScale": 1,
+            "neonGlowBrightness": 40,
+            "dashThickness": 1.5,
+            "roundedLineCap": false,
+            "useFixedLevelColor": false,
+            "levelColors": [],
+            "showTitle": true,
+            "title": "Humedad Terrestre",
+            "titleFont": {
+              "family": "Roboto",
+              "size": 12,
+              "style": "normal",
+              "weight": "500"
+            },
+            "showUnitTitle": true,
+            "unitTitle": "%",
+            "showTimestamp": false,
+            "labelFont": {
+              "family": "Roboto",
+              "size": 8,
+              "style": "normal",
+              "weight": "500",
+              "color": null
+            },
+            "showValue": true,
+            "valueFont": {
+              "family": "Segment7Standard",
+              "size": 18,
+              "style": "normal",
+              "weight": "500",
+              "color": "#ffffff"
+            },
+            "showMinMax": true,
+            "minMaxFont": {
+              "family": "Segment7Standard",
+              "size": 12,
+              "style": "normal",
+              "weight": "500"
+            },
+            "showTicks": false,
+            "animation": true,
+            "animationDuration": 500,
+            "animationRule": "linear"
+          },
+          "title": "New Simple neon gauge",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "widgetStyle": {},
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {}
+        },
+        "row": 0,
+        "col": 0,
+        "id": "0b16c69b-4f37-0fd0-eb5e-83a183a424c0"
+      },
+      "ebfd428e-b427-76df-b05b-7389d835bcd5": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "led_indicator",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2.5,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Bomba de riego",
+            "ledColor": "#4caf50",
+            "initialValue": true,
+            "performCheckStatus": false,
+            "retrieveValueMethod": "attribute",
+            "valueAttribute": "Bomba1",
+            "parseValueFunction": "return data ? true : false;"
+          },
+          "title": "New Led indicator",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "ebfd428e-b427-76df-b05b-7389d835bcd5"
+      },
+      "97274c8a-b880-d513-4eb8-ad23f8410b7c": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "led_indicator",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2.5,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Luces",
+            "ledColor": "#4caf50",
+            "initialValue": true,
+            "performCheckStatus": false,
+            "retrieveValueMethod": "attribute",
+            "valueAttribute": "LED1",
+            "parseValueFunction": "return data ? true : false;"
+          },
+          "title": "New Led indicator",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "97274c8a-b880-d513-4eb8-ad23f8410b7c"
+      },
+      "ed195a74-d1de-c77c-d6f8-414c91e0ca83": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "round_switch",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Luces",
+            "initialValue": false,
+            "retrieveValueMethod": "attribute",
+            "valueKey": "LED1",
+            "parseValueFunction": "return data ? true : false;",
+            "setValueMethod": "setLedStatus",
+            "convertValueFunction": "return value;",
+            "requestTimeout": 500,
+            "requestPersistent": false
+          },
+          "title": "New Round switch",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "ed195a74-d1de-c77c-d6f8-414c91e0ca83"
+      },
+      "89592172-7268-4c11-1840-7e8a475ad87e": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "round_switch",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Bomba de riego",
+            "initialValue": false,
+            "retrieveValueMethod": "attribute",
+            "valueKey": "BOMBA1",
+            "parseValueFunction": "return data ? true : false;",
+            "setValueMethod": "setBomba1Status",
+            "convertValueFunction": "return value;",
+            "requestTimeout": 500,
+            "requestPersistent": false
+          },
+          "title": "New Round switch",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "89592172-7268-4c11-1840-7e8a475ad87e"
+      },
+      "9ee18695-28b1-07ac-8b31-efc58d464598": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "led_indicator",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2.5,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Tanque Vacio",
+            "ledColor": "#ec2626",
+            "initialValue": true,
+            "performCheckStatus": false,
+            "retrieveValueMethod": "attribute",
+            "valueAttribute": "Tanque1",
+            "parseValueFunction": "return data ? true : false;"
+          },
+          "title": "New Led indicator",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "9ee18695-28b1-07ac-8b31-efc58d464598"
+      },
+      "ce2a9cf7-151b-204f-8a79-16cbbcd7f58a": {
+        "isSystemType": true,
+        "bundleAlias": "alarm_widgets",
+        "typeAlias": "alarms_table",
+        "type": "alarm",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 10.5,
+        "sizeY": 6.5,
+        "config": {
+          "timewindow": {
+            "realtime": {
+              "interval": 1000,
+              "timewindowMs": 86400000
+            },
+            "aggregation": {
+              "type": "NONE",
+              "limit": 200
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "4px",
+          "settings": {
+            "enableSelection": true,
+            "enableSearch": true,
+            "displayDetails": true,
+            "allowAcknowledgment": true,
+            "allowClear": true,
+            "displayPagination": true,
+            "defaultPageSize": 10,
+            "defaultSortOrder": "-createdTime",
+            "enableSelectColumnDisplay": true,
+            "enableStickyAction": false,
+            "enableFilter": true
+          },
+          "title": "New Alarms table",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400,
+            "padding": "5px 10px 5px 10px"
+          },
+          "useDashboardTimewindow": false,
+          "showLegend": false,
+          "alarmSource": {
+            "type": "entity",
+            "name": null,
+            "entityAliasId": "e6aab2fd-4e8a-8071-2232-a62ddaa8c768",
+            "filterId": null,
+            "dataKeys": [
+              {
+                "name": "createdTime",
+                "type": "alarm",
+                "label": "Created time",
+                "color": "#2196f3",
+                "settings": {
+                  "useCellStyleFunction": false,
+                  "cellStyleFunction": "",
+                  "useCellContentFunction": false,
+                  "cellContentFunction": ""
+                },
+                "_hash": 0.021092237451093787
+              },
+              {
+                "name": "originator",
+                "type": "alarm",
+                "label": "Originator",
+                "color": "#4caf50",
+                "settings": {
+                  "useCellStyleFunction": false,
+                  "cellStyleFunction": "",
+                  "useCellContentFunction": false,
+                  "cellContentFunction": ""
+                },
+                "_hash": 0.2780007688856758
+              },
+              {
+                "name": "type",
+                "type": "alarm",
+                "label": "Type",
+                "color": "#f44336",
+                "settings": {
+                  "useCellStyleFunction": false,
+                  "cellStyleFunction": "",
+                  "useCellContentFunction": false,
+                  "cellContentFunction": ""
+                },
+                "_hash": 0.7323586880398418
+              },
+              {
+                "name": "severity",
+                "type": "alarm",
+                "label": "Severity",
+                "color": "#ffc107",
+                "settings": {
+                  "useCellStyleFunction": false,
+                  "useCellContentFunction": false
+                },
+                "_hash": 0.09927019860088193
+              },
+              {
+                "name": "status",
+                "type": "alarm",
+                "label": "Status",
+                "color": "#607d8b",
+                "settings": {
+                  "useCellStyleFunction": false,
+                  "cellStyleFunction": "",
+                  "useCellContentFunction": false,
+                  "cellContentFunction": ""
+                },
+                "_hash": 0.6588418951443418
+              }
+            ]
+          },
+          "alarmSearchStatus": "ANY",
+          "alarmsPollingInterval": 5,
+          "showTitleIcon": false,
+          "titleIcon": "more_horiz",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "displayTimewindow": true,
+          "actions": {},
+          "alarmStatusList": [
+            "ACTIVE"
+          ],
+          "alarmSeverityList": [],
+          "alarmTypeList": [],
+          "searchPropagatedAlarms": false,
+          "datasources": []
+        },
+        "row": 0,
+        "col": 0,
+        "id": "ce2a9cf7-151b-204f-8a79-16cbbcd7f58a"
+      },
+      "47c86c03-b518-061e-2c72-98956a7c9dd1": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "led_indicator",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2.5,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Extractor 1",
+            "ledColor": "#4caf50",
+            "initialValue": true,
+            "performCheckStatus": false,
+            "retrieveValueMethod": "attribute",
+            "valueAttribute": "EXOK",
+            "parseValueFunction": "return data ? true : false;"
+          },
+          "title": "New Led indicator",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "47c86c03-b518-061e-2c72-98956a7c9dd1"
+      },
+      "af1b9ffa-a2e8-0c56-30a0-1bcb664bb48f": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "led_indicator",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2.5,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Extractor 2",
+            "ledColor": "#4caf50",
+            "initialValue": true,
+            "performCheckStatus": false,
+            "retrieveValueMethod": "attribute",
+            "valueAttribute": "EX2",
+            "parseValueFunction": "return data ? true : false;"
+          },
+          "title": "New Led indicator",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "af1b9ffa-a2e8-0c56-30a0-1bcb664bb48f"
+      },
+      "4b320921-b3fc-5c6f-b57c-28843313fb1b": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "led_indicator",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2.5,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Ventilador",
+            "ledColor": "#4caf50",
+            "initialValue": true,
+            "performCheckStatus": false,
+            "retrieveValueMethod": "attribute",
+            "valueAttribute": "FAN1",
+            "parseValueFunction": "return data ? true : false;"
+          },
+          "title": "New Led indicator",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "4b320921-b3fc-5c6f-b57c-28843313fb1b"
+      },
+      "5ed8cbc6-c400-cecb-0cc9-495b74826e44": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "round_switch",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Extractor 1",
+            "initialValue": true,
+            "retrieveValueMethod": "attribute",
+            "valueKey": "EXOK",
+            "parseValueFunction": "return data ? true : false;",
+            "setValueMethod": "setExOkStatus",
+            "convertValueFunction": "return value;",
+            "requestTimeout": 500,
+            "requestPersistent": false
+          },
+          "title": "New Round switch",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "5ed8cbc6-c400-cecb-0cc9-495b74826e44"
+      },
+      "f218a17c-7420-f573-c3ea-5853c0b312eb": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "round_switch",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Extractor 2",
+            "initialValue": true,
+            "retrieveValueMethod": "attribute",
+            "valueKey": "EX2",
+            "parseValueFunction": "return data ? true : false;",
+            "setValueMethod": "setEx2Status",
+            "convertValueFunction": "return value;",
+            "requestTimeout": 500,
+            "requestPersistent": false
+          },
+          "title": "New Round switch",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "f218a17c-7420-f573-c3ea-5853c0b312eb"
+      },
+      "76646f90-2d46-5eed-257a-24f97022aeb4": {
+        "isSystemType": true,
+        "bundleAlias": "control_widgets",
+        "typeAlias": "round_switch",
+        "type": "rpc",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2,
+        "config": {
+          "targetDeviceAliases": [],
+          "showTitle": false,
+          "backgroundColor": "#e6e7e8",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "title": "Ventilador",
+            "initialValue": true,
+            "retrieveValueMethod": "attribute",
+            "valueKey": "FAN1",
+            "parseValueFunction": "return data ? true : false;",
+            "setValueMethod": "setFan1Status",
+            "convertValueFunction": "return value;",
+            "requestTimeout": 500,
+            "requestPersistent": false
+          },
+          "title": "New Round switch",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "decimals": 2,
+          "datasources": [],
+          "targetDeviceAliasIds": [
+            "cd179092-0733-ee21-3a06-93b30f662c59"
+          ]
+        },
+        "row": 0,
+        "col": 0,
+        "id": "76646f90-2d46-5eed-257a-24f97022aeb4"
+      },
+      "fbac581a-27fd-7374-9af6-1f414b340c8b": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_server_boolean_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "e6aab2fd-4e8a-8071-2232-a62ddaa8c768",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "ControlAutomatizadoKey",
+                  "type": "attribute",
+                  "label": "ControlAutomatizadoKey",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9970229618106003
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668651646349,
+                "endTimeMs": 1668738046349
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {},
+          "title": "Control Automatizado",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "fbac581a-27fd-7374-9af6-1f414b340c8b"
+      },
+      "6900e4fc-3802-9c6d-ce55-fd08395ddfb7": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_server_boolean_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 7.5,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "e6aab2fd-4e8a-8071-2232-a62ddaa8c768",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "RiegoAutomatizadoKey",
+                  "type": "attribute",
+                  "label": "RiegoAutomatizadoKey",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.4470072463193111
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "displayValue": "",
+            "selectedTab": 0,
+            "realtime": {
+              "realtimeType": 1,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "quickInterval": "CURRENT_DAY"
+            },
+            "history": {
+              "historyType": 0,
+              "interval": 1000,
+              "timewindowMs": 60000,
+              "fixedTimewindow": {
+                "startTimeMs": 1668651646349,
+                "endTimeMs": 1668738046349
+              },
+              "quickInterval": "CURRENT_DAY"
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 2500
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {},
+          "title": "Riego Automatizado",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleTooltip": "",
+          "widgetCss": "",
+          "pageSize": 1024,
+          "noDataDisplayMessage": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "6900e4fc-3802-9c6d-ce55-fd08395ddfb7"
+      },
+      "13e2421a-5aa6-1665-12e5-7035949e66d9": {
+        "isSystemType": true,
+        "bundleAlias": "navigation_widgets",
+        "typeAlias": "navigation_card",
+        "type": "static",
+        "title": "New widget",
+        "image": null,
+        "description": null,
+        "sizeX": 2.5,
+        "sizeY": 2,
+        "config": {
+          "datasources": [],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "rgba(255,255,255,0)",
+          "color": "rgba(255,255,255,0.87)",
+          "padding": "8px",
+          "settings": {
+            "name": "Perfiles",
+            "icon": "settings",
+            "path": "/dashboards/ebfae290-66cd-11ed-81ab-ffa1a15f3161"
+          },
+          "title": "New Navigation card",
+          "dropShadow": false,
+          "showTitleIcon": false,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "showLegend": false
+        },
+        "row": 0,
+        "col": 0,
+        "id": "13e2421a-5aa6-1665-12e5-7035949e66d9"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "AutoPlant",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "0c192401-cc38-e82e-9548-3a640a82cf1a": {
+                "sizeX": 4,
+                "sizeY": 3,
+                "row": 0,
+                "col": 0
+              },
+              "49055dbb-58d5-4f93-00f7-3052da61db2d": {
+                "sizeX": 4,
+                "sizeY": 3,
+                "row": 0,
+                "col": 4
+              },
+              "0b16c69b-4f37-0fd0-eb5e-83a183a424c0": {
+                "sizeX": 4,
+                "sizeY": 3,
+                "row": 0,
+                "col": 8
+              },
+              "ebfd428e-b427-76df-b05b-7389d835bcd5": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 2,
+                "col": 18
+              },
+              "97274c8a-b880-d513-4eb8-ad23f8410b7c": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 2,
+                "col": 14
+              },
+              "ed195a74-d1de-c77c-d6f8-414c91e0ca83": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 2,
+                "col": 12
+              },
+              "89592172-7268-4c11-1840-7e8a475ad87e": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 2,
+                "col": 16
+              },
+              "9ee18695-28b1-07ac-8b31-efc58d464598": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 4,
+                "col": 16
+              },
+              "ce2a9cf7-151b-204f-8a79-16cbbcd7f58a": {
+                "sizeX": 12,
+                "sizeY": 7,
+                "row": 3,
+                "col": 0
+              },
+              "47c86c03-b518-061e-2c72-98956a7c9dd1": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 4,
+                "col": 14
+              },
+              "af1b9ffa-a2e8-0c56-30a0-1bcb664bb48f": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 6,
+                "col": 14
+              },
+              "4b320921-b3fc-5c6f-b57c-28843313fb1b": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 8,
+                "col": 14
+              },
+              "5ed8cbc6-c400-cecb-0cc9-495b74826e44": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 4,
+                "col": 12
+              },
+              "f218a17c-7420-f573-c3ea-5853c0b312eb": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 6,
+                "col": 12
+              },
+              "76646f90-2d46-5eed-257a-24f97022aeb4": {
+                "sizeX": 2,
+                "sizeY": 2,
+                "row": 8,
+                "col": 12
+              },
+              "fbac581a-27fd-7374-9af6-1f414b340c8b": {
+                "sizeX": 4,
+                "sizeY": 2,
+                "row": 0,
+                "col": 12
+              },
+              "6900e4fc-3802-9c6d-ce55-fd08395ddfb7": {
+                "sizeX": 4,
+                "sizeY": 2,
+                "row": 0,
+                "col": 16
+              },
+              "13e2421a-5aa6-1665-12e5-7035949e66d9": {
+                "sizeX": 4,
+                "sizeY": 4,
+                "row": 6,
+                "col": 16
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "columns": 24,
+              "margin": 10,
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "e6aab2fd-4e8a-8071-2232-a62ddaa8c768": {
+        "id": "e6aab2fd-4e8a-8071-2232-a62ddaa8c768",
+        "alias": "ESP32",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "35075c20-3938-11ed-b827-c9be76c6f5d7"
+          }
+        }
+      },
+      "cd179092-0733-ee21-3a06-93b30f662c59": {
+        "id": "cd179092-0733-ee21-3a06-93b30f662c59",
+        "alias": "ESP8266",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "cb2fd010-393d-11ed-b827-c9be76c6f5d7"
+          }
+        }
+      }
+    },
+    "filters": {},
+    "timewindow": {
+      "hideInterval": false,
+      "hideLastInterval": false,
+      "hideQuickInterval": false,
+      "hideAggregation": false,
+      "hideAggInterval": false,
+      "hideTimezone": false,
+      "selectedTab": 1,
+      "history": {
+        "historyType": 1,
+        "fixedTimewindow": {
+          "startTimeMs": 1668133799999,
+          "endTimeMs": 1668137399999
+        },
+        "interval": 8000
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 2500
+      }
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  },
+  "externalId": null,
+  "name": "AutoPlant"
+}
